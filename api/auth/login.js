@@ -14,12 +14,11 @@ export default async function handler(req, res) {
 
   const { email, password } = req.body;
 
-  // Simple authentication (replace with your preferred method)
+  // Simple authentication
   const adminEmail = "admin@mark8pips.com";
-  const adminPassword = "Mark8Pips2024!"; // Change this to your secure password
+  const adminPassword = "Mark8Pips2024!"; // Change this password
 
   if (email === adminEmail && password === adminPassword) {
-    // Generate a simple JWT-like token (use proper JWT in production)
     const token = Buffer.from(`${email}:${Date.now()}`).toString('base64');
     
     res.json({
