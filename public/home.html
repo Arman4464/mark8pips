@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark8Pips - Professional Trading Solutions | Expert Advisors & Indicators</title>
+    <meta name="description" content="Professional Forex EAs and indicators for MT4/MT5. Scalping robots, trend following systems, and technical analysis tools. Start your 30-day free trial today!">
+    <meta name="keywords" content="Forex EA, Expert Advisor, MT4, MT5, Trading Robot, Forex Indicators, Scalping EA, Trend Following">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mark8Pips - Professional Trading Solutions">
+    <meta property="og:description" content="Professional Forex EAs and indicators for serious traders">
+    <meta property="og:image" content="/og-image.jpg">
+    <meta property="og:url" content="https://mark8pips-license.vercel.app">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #9ACD32;
+            --accent-color: #FFD700;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-dark: #1a1a1a;
+            --bg-section: #f8f9fa;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--bg-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: var(--gradient-secondary);
+            color: var(--primary-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23FFD70010" points="0,1000 1000,800 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--text-light), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .hero-video {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .hero-video iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+        
+        .live-indicator {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4444;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 80px 0;
+            background: var(--bg-section);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-secondary);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-features li {
+            padding: 0.3rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .product-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .price-monthly {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .price-yearly {
+            font-size: 0.9rem;
+            color: #666;
+            text-decoration: line-through;
+        }
+        
+        .buy-button {
+            width: 100%;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .trial-button {
+            width: 100%;
+            background: var(--gradient-secondary);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #999;
+        }
+        
+        /* Purchase Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        .plan-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .plan-option.selected {
+            border-color: var(--secondary-color);
+            background: rgba(154, 205, 50, 0.1);
+        }
+        
+        .plan-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-period {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .terms-checkbox input {
+            margin-top: 0.2rem;
+        }
+        
+        .terms-checkbox label {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0;
+        }
+        
+        .terms-checkbox a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .purchase-btn {
+            width: 100%;
+            background: var(--gradient-secondary);
+            color: var(--primary-color);
+            border: none;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .purchase-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .purchase-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-stats { justify-content: center; }
+            .products-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .modal-content { padding: 2rem; }
+            .plan-selection { grid-template-columns: 1fr; }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-secondary);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">Mark8Pips</a>
+            <nav class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a href="/admin" class="cta-button">Admin Login</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Professional Trading Solutions</h1>
+                <p>Unlock your trading potential with our premium Expert Advisors and Indicators. Join thousands of successful traders worldwide.</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalUsers">2,847</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Premium EAs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-video">
+                <div id="liveIndicator" class="live-indicator" style="display: none;">
+                    <i class="fas fa-circle" style="color: #ff4444; margin-right: 5px;"></i> LIVE
+                </div>
+                <iframe id="youtubeVideo" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Premium Trading Solutions</h2>
+                <p class="section-subtitle">Choose from our collection of professional Expert Advisors and Indicators, designed for consistent profitability.</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Mark8Pips?</h2>
+                <p class="section-subtitle">Experience the difference with our professional trading tools and dedicated support.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Powered EAs</h3>
+                    <p class="feature-description">Our Expert Advisors use advanced algorithms and machine learning to identify profitable trading opportunities in real-time.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Advanced Risk Management</h3>
+                    <p class="feature-description">Built-in risk management features protect your capital with dynamic stop-loss, take-profit, and position sizing.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">Get dedicated support from our team of trading experts whenever you need assistance with setup or optimization.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Proven Performance</h3>
+                    <p class="feature-description">All our products are backtested extensively and proven in live trading environments with verified track records.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Regular Updates</h3>
+                    <p class="feature-description">Receive free updates and improvements to keep your trading tools optimized for current market conditions.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Multi-Platform</h3>
+                    <p class="feature-description">Compatible with MT4 and MT5 platforms on Windows, Mac, and mobile devices for trading anywhere, anytime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mark8Pips</h3>
+                    <p>Professional trading solutions for serious traders. Join our community and take your trading to the next level.</p>
+                    <div class="social-links">
+                        <a href="https://youtube.com/@mark8pips" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://t.me/mark8pips" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com/mark8pips" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/mark8pips" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Products</h3>
+                    <a href="#products">Expert Advisors</a>
+                    <a href="#products">Indicators</a>
+                    <a href="#products">Signal Services</a>
+                    <a href="#features">Features</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="/terms">Terms & Conditions</a>
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/refund">Refund Policy</a>
+                    <a href="/help">Help Center</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> support@mark8pips.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +1 (555) 123-4567</p>
+                    <p><i class="fab fa-telegram"></i> @mark8pips</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Support</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mark8Pips. All rights reserved. | Professional Trading Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalProductTitle">Purchase Product</h3>
+                <button class="close-btn" onclick="closePurchaseModal()">&times;</button>
+            </div>
+            
+            <form id="purchaseForm">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" class="form-control" id="customerName" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" id="customerEmail" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>MT4/MT5 Account Number</label>
+                    <input type="number" class="form-control" id="accountNumber" required placeholder="Enter your trading account number">
+                </div>
+                
+                <div class="form-group">
+                    <label>Select Plan</label>
+                    <div class="plan-selection" id="planSelection">
+                        <!-- Plans will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="termsAccepted" required>
+                    <label for="termsAccepted">
+                        I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and understand that:
+                        • This software is for educational purposes only
+                        • Trading involves risk of loss
+                        • Past performance doesn't guarantee future results
+                        • I am responsible for my trading decisions
+                    </label>
+                </div>
+                
+                <button type="submit" class="purchase-btn" id="purchaseBtn">
+                    <span id="purchaseText">Complete Purchase</span>
+                    <span id="purchaseLoading" class="loading" style="display: none;"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        const API_BASE = window.location.origin;
+        let currentProducts = [];
+        let selectedProduct = null;
+        let selectedPlan = null;
+        
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            checkYoutubeLiveStream();
+            initScrollToTop();
+        });
+        
+        // Load products from API
+        async function loadProducts() {
+            try {
+                const response = await fetch(`${API_BASE}/api/public/products`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentProducts = result.products;
+                    displayProducts(currentProducts);
+                }
+            } catch (error) {
+                console.error('Failed to load products:', error);
+                displayFallbackProducts();
+            }
+        }
+        
+        // Display products in grid
+        function displayProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = createProductCard(product);
+                grid.appendChild(productCard);
+            });
+        }
+        
+        // Create product card element
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const isEA = product.type === 'ea';
+            const icon = isEA ? 'fas fa-robot' : product.type === 'indicator' ? 'fas fa-chart-bar' : 'fas fa-signal';
+            
+            card.innerHTML = `
+                ${product.is_featured ? '<div class="product-badge">Featured</div>' : ''}
+                <div class="product-icon">
+                    <i class="${icon}"></i>
+                </div>
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.short_description}</p>
+                <ul class="product-features">
+                    <li>30-Day Free Trial</li>
+                    <li>24/7 Support</li>
+                    <li>Regular Updates</li>
+                    <li>Money Back Guarantee</li>
+                </ul>
+                <div class="product-pricing">
+                    <div>
+                        <div class="price-monthly">$${product.price_monthly}/month</div>
+                        <div class="price-yearly">$${(product.price_monthly * 12).toFixed(2)}/year</div>
+                    </div>
+                </div>
+                <button class="buy-button" onclick="openPurchaseModal('${product.id}')">
+                    Get Started
+                </button>
+                <button class="trial-button" onclick="startTrial('${product.id}')">
+                    Start Free Trial
+                </button>
+            `;
+            
+            return card;
+        }
+        
+        // Fallback products if API fails
+        function displayFallbackProducts() {
+            const sampleProducts = [
+                {
+                    id: 'sample-1',
+                    name: 'Professional Scalping EA',
+                    type: 'ea',
+                    short_description: 'AI-powered scalping EA for professional traders',
+                    price_monthly: 29.99,
+                    is_featured: true
+                },
+                {
+                    id: 'sample-2', 
+                    name: 'Trend Following EA',
+                    type: 'ea',
+                    short_description: 'Professional trend-following system',
+                    price_monthly: 39.99,
+                    is_featured: true
+                }
+            ];
+            
+            displayProducts(sampleProducts);
+        }
+        
+        // Open purchase modal
+        function openPurchaseModal(productId) {
+            const product = currentProducts.find(p => p.id === productId);
+            if (!product) return;
+            
+            selectedProduct = product;
+            selectedPlan = null;
+            
+            document.getElementById('modalProductTitle').textContent = `Purchase ${product.name}`;
+            
+            // Populate plan selection
+            const planSelection = document.getElementById('planSelection');
+            planSelection.innerHTML = '';
+            
+            const plans = [
+                { id: 'monthly', name: 'Monthly', price: product.price_monthly, period: '/month' },
+                { id: 'yearly', name: 'Yearly', price: product.price_yearly, period: '/year', discount: '17% OFF' },
+                { id: 'lifetime', name: 'Lifetime', price: product.price_lifetime, period: 'one-time', discount: 'BEST VALUE' }
+            ];
+            
+            plans.forEach(plan => {
+                const planDiv = document.createElement('div');
+                planDiv.className = 'plan-option';
+                planDiv.onclick = () => selectPlan(plan.id);
+                
+                planDiv.innerHTML = `
+                    ${plan.discount ? `<div style="font-size: 0.7rem; color: var(--secondary-color); font-weight: bold;">${plan.discount}</div>` : ''}
+                    <div class="plan-price">$${plan.price}</div>
+                    <div class="plan-period">${plan.period}</div>
+                `;
+                
+                planSelection.appendChild(planDiv);
+            });
+            
+            document.getElementById('purchaseModal').style.display = 'block';
+        }
+        
+        // Select plan
+        function selectPlan(planId) {
+            selectedPlan = planId;
+            
+            // Update UI
+            document.querySelectorAll('.plan-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            event.target.closest('.plan-option').classList.add('selected');
+            
+            // Update purchase button
+            const plan = selectedPlan;
+            const product = selectedProduct;
+            const planData = {
+                monthly: { price: product.price_monthly, text: `Purchase Monthly ($${product.price_monthly}/month)` },
+                yearly: { price: product.price_yearly, text: `Purchase Yearly ($${product.price_yearly}/year)` },
+                lifetime: { price: product.price_lifetime, text: `Purchase Lifetime ($${product.price_lifetime})` }
+            };
+            
+            document.getElementById('purchaseText').textContent = planData[plan].text;
+        }
+        
+        // Close purchase modal
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').style.display = 'none';
+            document.getElementById('purchaseForm').reset();
+            selectedProduct = null;
+            selectedPlan = null;
+        }
+        
+        // Handle purchase form submission
+        document.getElementById('purchaseForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!selectedProduct || !selectedPlan) {
+                alert('Please select a plan');
+                return;
+            }
+            
+            const formData = {
+                product_id: selectedProduct.id,
+                customer_name: document.getElementById('customerName').value,
+                customer_email: document.getElementById('customerEmail').value,
+                account_number: document.getElementById('accountNumber').value,
+                subscription_type: selectedPlan
+            };
+            
+            // Show loading
+            document.getElementById('purchaseText').style.display = 'none';
+            document.getElementById('purchaseLoading').style.display = 'inline-block';
+            document.getElementById('purchaseBtn').disabled = true;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/public/create-order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Order created successfully! Please check your email for payment instructions.');
+                    closePurchaseModal();
+                } else {
+                    alert('Failed to create order: ' + result.message);
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            } finally {
+                // Hide loading
+                document.getElementById('purchaseText').style.display = 'inline';
+                document.getElementById('purchaseLoading').style.display = 'none';
+                document.getElementById('purchaseBtn').disabled = false;
+            }
+        });
+        
+        // Start trial
+        function startTrial(productId) {
+            const product = currentProducts.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Show trial modal or direct process
+            alert(`Starting 30-day free trial for ${product.name}!\n\nPlease contact support at support@mark8pips.com to get your trial license.`);
+        }
+        
+        // Check for YouTube live stream
+        async function checkYoutubeLiveStream() {
+            try {
+                // This would need YouTube API integration
+                // For now, show default video
+                const defaultVideoId = 'dQw4w9WgXcQ'; // Replace with actual video
+                document.getElementById('youtubeVideo').src = `https://www.youtube.com/embed/${defaultVideoId}?autoplay=0&mute=1`;
+            } catch (error) {
+                console.error('Failed to check live stream:', error);
+            }
+        }
+        
+        // Scroll to top functionality
+        function initScrollToTop() {
+            const scrollBtn = document.getElementById('scrollTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('purchaseModal');
+            if (event.target == modal) {
+                closePurchaseModal();
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
