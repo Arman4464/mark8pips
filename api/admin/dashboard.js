@@ -225,3 +225,31 @@ export default async function handler(req, res) {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }
+// Add these new actions to your existing switch statement
+
+if (action === 'pause') {
+  await supabase
+    .from('users')
+    .update({ status: 'paused' })
+    .eq('account_number', account_number);
+  
+  res.json({ success: true, message: 'User paused successfully' });
+}
+
+if (action === 'resume') {
+  await supabase
+    .from('users')
+    .update({ status: 'active' })
+    .eq('account_number', account_number);
+  
+  res.json({ success: true, message: 'User resumed successfully' });
+}
+
+if (action === 'delete') {
+  await supabase
+    .from('users')
+    .delete()
+    .eq('account_number', account_number);
+  
+  res.json({ success: true, message: 'User deleted permanently' });
+}
