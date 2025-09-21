@@ -38,6 +38,8 @@
         
         /* Dashboard Styles */
         .dashboard { display: none; background: #f8fafc; min-height: 100vh; }
+        
+        /* Sidebar with Toggle */
         .sidebar { 
             position: fixed; 
             left: 0; 
@@ -48,11 +50,36 @@
             color: white; 
             overflow-y: auto;
             z-index: 1000;
+            transition: transform 0.3s ease;
         }
+        
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+        
         .sidebar-header { 
             padding: 2rem 1.5rem; 
             border-bottom: 1px solid #404040; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
         .sidebar-menu { list-style: none; padding: 1rem 0; }
         .sidebar-menu li { margin: 0; }
         .sidebar-menu a { 
@@ -72,7 +99,13 @@
         .main-content { 
             margin-left: 280px; 
             padding: 2rem; 
+            transition: margin-left 0.3s ease;
         }
+        
+        .main-content.expanded {
+            margin-left: 0;
+        }
+        
         .top-header { 
             background: white; 
             padding: 1.5rem 2rem; 
@@ -83,6 +116,18 @@
             justify-content: space-between;
             align-items: center;
         }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
         .user-info { display: flex; align-items: center; gap: 1rem; }
         .user-avatar { 
             width: 45px; 
@@ -155,24 +200,148 @@
         }
         .card-body { padding: 2rem; }
         
-        /* Tables */
+        /* Enhanced Tables */
         .table-container { overflow-x: auto; }
-        .users-table { width: 100%; border-collapse: collapse; }
+        .users-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         .users-table th, .users-table td { 
-            padding: 1.2rem 1rem; 
+            padding: 1rem 0.8rem; 
             text-align: left; 
             border-bottom: 1px solid #e1e8ed; 
+            vertical-align: top;
         }
         .users-table th { 
             background: #f8fafc; 
             font-weight: 600; 
             color: #2c3e50; 
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .users-table tbody tr { transition: all 0.3s; }
         .users-table tbody tr:hover { background: #f8fafc; transform: translateY(-1px); }
+        
+        /* Account Info Styles */
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .account-number {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+        
+        .account-name {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .account-type-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+        
+        .account-real {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .account-demo {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .account-unknown {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #d6d8db;
+        }
+        
+        .broker-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        
+        .broker-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .server-name {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .ea-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        
+        .ea-name {
+            font-weight: 600;
+            color: #3498db;
+            font-size: 0.9rem;
+        }
+        
+        .ea-version {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .balance-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            text-align: right;
+        }
+        
+        .balance-amount {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #27ae60;
+        }
+        
+        .balance-currency {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .activity-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            font-size: 0.85rem;
+        }
+        
+        .last-seen {
+            color: #2c3e50;
+        }
+        
+        .validation-count {
+            color: #666;
+        }
+        
+        .client-ip {
+            color: #999;
+            font-size: 0.75rem;
+        }
         
         /* Status Badges */
         .status-badge { 
@@ -182,6 +351,9 @@
             font-weight: 600; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .status-trial { background: #fff3cd; color: #856404; }
         .status-active { background: #d4edda; color: #155724; }
@@ -190,28 +362,27 @@
         
         /* Buttons */
         .btn { 
-            padding: 0.6rem 1.5rem; 
+            padding: 0.5rem 1rem; 
             border: none; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.9rem; 
+            font-size: 0.85rem; 
             font-weight: 500; 
             transition: all 0.3s;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
         .btn-primary { background: #3498db; color: white; }
         .btn-success { background: #2ecc71; color: white; }
         .btn-warning { background: #f39c12; color: white; }
         .btn-danger { background: #e74c3c; color: white; }
         .btn-info { background: #17a2b8; color: white; }
-        .btn-sm { padding: 0.4rem 1rem; font-size: 0.8rem; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
         
         /* Forms */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { 
             display: block; 
@@ -295,111 +466,29 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
+            .sidebar { transform: translateX(-280px); }
+            .sidebar.mobile-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
+            .main-content.expanded { margin-left: 0; }
+            .mobile-toggle { display: block; }
             .stats-grid { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
+            .users-table { font-size: 0.8rem; }
+            .users-table th, .users-table td { padding: 0.8rem 0.5rem; }
         }
         
-        /* Dark theme toggle */
-        .theme-toggle { 
-            background: none; 
-            border: none; 
-            color: #ecf0f1; 
-            font-size: 1.2rem; 
-            cursor: pointer; 
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        .theme-toggle:hover { background: rgba(255,255,255,0.1); }
-        
-        /* Progress bars */
-        .progress { 
-            background: #e9ecef; 
-            border-radius: 10px; 
-            height: 8px; 
-            overflow: hidden; 
-            margin-top: 0.5rem;
-        }
-        .progress-bar { 
-            height: 100%; 
-            background: linear-gradient(45deg, #3498db, #2ecc71); 
-            transition: width 0.6s ease;
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
         }
         
-        /* Tooltips */
-        .tooltip { position: relative; }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.8rem;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        
-        /* Loading spinner */
-        .spinner { 
-            border: 3px solid #f3f3f3; 
-            border-top: 3px solid #3498db; 
-            border-radius: 50%; 
-            width: 30px; 
-            height: 30px; 
-            animation: spin 1s linear infinite; 
-        }
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Search and filters */
-        .filters-bar { 
-            background: white; 
-            padding: 1.5rem; 
-            border-radius: 15px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            margin-bottom: 1.5rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .search-box { 
-            position: relative; 
-            flex: 1; 
-            min-width: 300px;
-        }
-        .search-box i { 
-            position: absolute; 
-            left: 1rem; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            color: #7f8c8d; 
-        }
-        .search-box input { 
-            padding-left: 3rem; 
-        }
-        
-        /* Quick actions */
-        .quick-actions { 
-            display: flex; 
-            gap: 1rem; 
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -414,7 +503,7 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" class="form-control" id="loginEmail" required placeholder="example@gmail.com" required>
+                    <input type="email" class="form-control" id="loginEmail" value="admin@mark8pips.com" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
@@ -429,11 +518,16 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-        <!-- Sidebar -->
-        <div class="sidebar">
+        <!-- Toggleable Sidebar -->
+        <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3><i class="fas fa-crown"></i> Mark8Pips</h3>
-                <p style="opacity: 0.8; font-size: 0.9rem;">License Manager Pro</p>
+                <div>
+                    <h3><i class="fas fa-crown"></i> Mark8Pips</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">License Manager Pro</p>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="#" onclick="showPage('overview')" class="active">
@@ -448,26 +542,25 @@
                 <li><a href="#" onclick="showPage('analytics')">
                     <i class="fas fa-chart-pie"></i> Analytics
                 </a></li>
-                <li><a href="#" onclick="showPage('activity')">
-                    <i class="fas fa-history"></i> Activity Log
-                </a></li>
-                <li><a href="#" onclick="showPage('tools')">
-                    <i class="fas fa-tools"></i> Admin Tools
-                </a></li>
             </ul>
         </div>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <div class="main-content" id="mainContent">
             <!-- Top Header -->
             <div class="top-header">
-                <div>
-                    <h1>Welcome back! 👋</h1>
-                    <p style="color: #666;">Manage your EA licenses and users</p>
+                <div style="display: flex; align-items: center;">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1>Welcome back! 👋</h1>
+                        <p style="color: #666;">Manage your EA licenses and users</p>
+                    </div>
                 </div>
                 <div class="user-info">
-                    <button class="theme-toggle" onclick="toggleTheme()">
-                        <i class="fas fa-moon"></i>
+                    <button class="sidebar-toggle" id="desktopSidebarToggle" style="margin-right: 1rem;">
+                        <i class="fas fa-bars" style="color: #666;"></i>
                     </button>
                     <div class="user-avatar">MP</div>
                     <div>
@@ -489,16 +582,9 @@
                             <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <div class="tooltip">
-                                <i class="fas fa-info-circle" style="color: #ccc;"></i>
-                                <span class="tooltiptext">Total registered users across all plans</span>
-                            </div>
                         </div>
                         <div class="stat-number" id="totalUsers">0</div>
                         <div class="stat-label">Total Users</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="totalUsersProgress" style="width: 0%"></div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
@@ -509,9 +595,6 @@
                         </div>
                         <div class="stat-number" id="trialUsers">0</div>
                         <div class="stat-label">Active Trials</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="trialProgress" style="width: 0%"></div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
@@ -522,9 +605,6 @@
                         </div>
                         <div class="stat-number" id="paidUsers">0</div>
                         <div class="stat-label">Paid Users</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="paidProgress" style="width: 0%"></div>
-                        </div>
                     </div>
 
                     <div class="stat-card">
@@ -535,108 +615,29 @@
                         </div>
                         <div class="stat-number" id="totalRevenue">$0</div>
                         <div class="stat-label">Total Revenue</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="revenueProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon" style="background: #ffebee; color: #c62828;">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                        </div>
-                        <div class="stat-number" id="expiringSoon">0</div>
-                        <div class="stat-label">Expiring Soon</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="expiringProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon" style="background: #e0f2f1; color: #00695c;">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                        <div class="stat-number" id="activeToday">0</div>
-                        <div class="stat-label">Active Today</div>
-                        <div class="progress">
-                            <div class="progress-bar" id="activeTodayProgress" style="width: 0%"></div>
-                        </div>
                     </div>
                 </div>
 
                 <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <button class="btn btn-primary" onclick="openCreateUserModal()">
-                        <i class="fas fa-user-plus"></i> Add New User
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="loadDashboardData()">
+                        <i class="fas fa-refresh"></i> Refresh Data
                     </button>
-                    <button class="btn btn-info" onclick="bulkOperation()">
-                        <i class="fas fa-tasks"></i> Bulk Operations
-                    </button>
-                    <button class="btn btn-warning" onclick="exportData()">
+                    <button class="btn btn-info" onclick="exportData()">
                         <i class="fas fa-download"></i> Export Data
                     </button>
-                    <button class="btn btn-success" onclick="sendAnnouncement()">
-                        <i class="fas fa-bullhorn"></i> Send Announcement
-                    </button>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-clock"></i> Recent Activity</h3>
-                        <button class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white;" onclick="refreshActivity()">
-                            <i class="fas fa-refresh"></i> Refresh
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div id="recentActivity">
-                            <div class="spinner" style="margin: 2rem auto;"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <!-- Users Management Page -->
             <div id="usersPage" class="page-content">
-                <!-- Filters Bar -->
-                <div class="filters-bar">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" class="form-control" id="userSearch" placeholder="Search by account number, email, or broker...">
-                    </div>
-                    <select class="form-control" id="statusFilter" style="width: auto;">
-                        <option value="">All Status</option>
-                        <option value="trial">Trial</option>
-                        <option value="active">Active</option>
-                        <option value="expired">Expired</option>
-                        <option value="suspended">Suspended</option>
-                    </select>
-                    <select class="form-control" id="planFilter" style="width: auto;">
-                        <option value="">All Plans</option>
-                        <option value="trial_7">7-Day Trial</option>
-                        <option value="trial_30">30-Day Trial</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                        <option value="lifetime">Lifetime</option>
-                    </select>
-                    <button class="btn btn-primary" onclick="applyFilters()">
-                        <i class="fas fa-filter"></i> Apply Filters
-                    </button>
-                </div>
-
                 <!-- Users Table -->
                 <div class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-users"></i> User Management</h3>
+                        <h3><i class="fas fa-users"></i> Enhanced User Management</h3>
                         <div style="display: flex; gap: 0.5rem;">
                             <button class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white;" onclick="loadDashboardData()">
                                 <i class="fas fa-refresh"></i>
-                            </button>
-                            <button class="btn btn-sm btn-success" onclick="openCreateUserModal()">
-                                <i class="fas fa-plus"></i> Add User
                             </button>
                         </div>
                     </div>
@@ -645,12 +646,12 @@
                             <table class="users-table">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="selectAll"> Account #</th>
-                                        <th>Broker</th>
+                                        <th>Account Info</th>
+                                        <th>Broker & Server</th>
+                                        <th>EA Information</th>
                                         <th>Balance</th>
                                         <th>Status</th>
-                                        <th>Plan</th>
-                                        <th>Expires</th>
+                                        <th>Subscription</th>
                                         <th>Activity</th>
                                         <th>Actions</th>
                                     </tr>
@@ -663,67 +664,15 @@
                 </div>
             </div>
 
-            <!-- Settings Page -->
+            <!-- Other pages -->
             <div id="settingsPage" class="page-content">
-                <div class="form-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-cog"></i> Trial Settings</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Default Trial Period</label>
-                                <select class="form-control" id="defaultTrial">
-                                    <option value="trial_7">7-Day Trial</option>
-                                    <option value="trial_30" selected>30-Day Trial</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Grace Period (Days)</label>
-                                <input type="number" class="form-control" id="gracePeriod" value="3" min="0" max="30">
-                            </div>
-                            <button class="btn btn-primary" onclick="saveTrialSettings()">
-                                <i class="fas fa-save"></i> Save Settings
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-dollar-sign"></i> Pricing Settings</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Monthly Price ($)</label>
-                                <input type="number" class="form-control" id="monthlyPrice" value="29">
-                            </div>
-                            <div class="form-group">
-                                <label>Yearly Price ($)</label>
-                                <input type="number" class="form-control" id="yearlyPrice" value="290">
-                            </div>
-                            <div class="form-group">
-                                <label>Lifetime Price ($)</label>
-                                <input type="number" class="form-control" id="lifetimePrice" value="999">
-                            </div>
-                            <button class="btn btn-primary" onclick="savePricingSettings()">
-                                <i class="fas fa-save"></i> Save Pricing
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <h2>System Settings</h2>
+                <p>Coming Soon...</p>
             </div>
 
-            <!-- Other pages will be added here -->
             <div id="analyticsPage" class="page-content">
-                <h2>Analytics Dashboard Coming Soon...</h2>
-            </div>
-
-            <div id="activityPage" class="page-content">
-                <h2>Activity Log Coming Soon...</h2>
-            </div>
-
-            <div id="toolsPage" class="page-content">
-                <h2>Admin Tools Coming Soon...</h2>
+                <h2>Analytics Dashboard</h2>
+                <p>Coming Soon...</p>
             </div>
         </div>
     </div>
@@ -739,28 +688,20 @@
             <div id="modalSuccess" class="alert alert-success" style="display: none;"></div>
             
             <form id="userForm">
-                <div class="form-grid">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="form-group">
                         <label>Account Number</label>
-                        <input type="number" class="form-control" id="modalAccountNumber" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Broker Name</label>
-                        <input type="text" class="form-control" id="modalBrokerName" required>
+                        <input type="number" class="form-control" id="modalAccountNumber" required readonly>
                     </div>
                     <div class="form-group">
                         <label>Subscription Plan</label>
                         <select class="form-control" id="modalSubscriptionType" required>
-                            <option value="trial_7">7-Day Trial (Free)</option>
-                            <option value="trial_30">30-Day Trial (Free)</option>
+                            <option value="trial_7">7-Day Trial</option>
+                            <option value="trial_30">30-Day Trial</option>
                             <option value="monthly">Monthly Plan ($29)</option>
                             <option value="yearly">Yearly Plan ($290)</option>
                             <option value="lifetime">Lifetime Plan ($999)</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Account Balance ($)</label>
-                        <input type="number" class="form-control" id="modalAccountBalance" step="0.01">
                     </div>
                 </div>
                 
@@ -790,11 +731,54 @@
         const API_BASE = window.location.origin;
         let authToken = localStorage.getItem('authToken');
         let currentUsers = [];
-        let filteredUsers = [];
         
         // Check authentication on page load
         if (authToken) {
             showDashboard();
+        }
+        
+        // Sidebar Toggle Functionality
+        function initSidebarToggle() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const desktopSidebarToggle = document.getElementById('desktopSidebarToggle');
+            const mobileToggle = document.getElementById('mobileToggle');
+            
+            // Desktop sidebar toggle
+            desktopSidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                
+                const icon = desktopSidebarToggle.querySelector('i');
+                if (sidebar.classList.contains('collapsed')) {
+                    icon.className = 'fas fa-bars';
+                } else {
+                    icon.className = 'fas fa-times';
+                }
+            });
+            
+            // Sidebar close button
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                desktopSidebarToggle.querySelector('i').className = 'fas fa-bars';
+            });
+            
+            // Mobile toggle
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('mobile-open');
+            });
+            
+            // Close mobile sidebar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(e.target) && 
+                    !mobileToggle.contains(e.target) && 
+                    sidebar.classList.contains('mobile-open')) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
         }
         
         // Login form
@@ -830,6 +814,7 @@
         function showDashboard() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+            initSidebarToggle();
             loadDashboardData();
         }
         
@@ -860,14 +845,12 @@
             
             // Load specific page data
             if (pageId === 'users') {
-                loadUsersData();
+                updateUsersTable(currentUsers);
             }
         }
         
         async function loadDashboardData() {
             try {
-                showLoading();
-                
                 const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
                     headers: { 'Authorization': `Bearer ${authToken}` }
                 });
@@ -876,59 +859,21 @@
                 
                 if (result.success) {
                     currentUsers = result.users || [];
-                    filteredUsers = [...currentUsers];
                     updateStatistics(result.stats);
-                    updateUsersTable(filteredUsers);
-                    updateRecentActivity(result.recent_activity);
+                    updateUsersTable(currentUsers);
                 } else {
-                    showError('dashboardError', 'Failed to load dashboard data');
+                    console.error('Failed to load dashboard data');
                 }
             } catch (error) {
-                showError('dashboardError', 'Network error - Please refresh the page');
-            } finally {
-                hideLoading();
+                console.error('Network error:', error);
             }
         }
         
         function updateStatistics(stats) {
-            // Update stat numbers with animation
-            animateNumber('totalUsers', stats.total_users);
-            animateNumber('trialUsers', stats.trial_7_users + stats.trial_30_users);
-            animateNumber('paidUsers', stats.monthly_users + stats.yearly_users + stats.lifetime_users);
-            animateNumber('totalRevenue', stats.total_revenue.total, '$');
-            animateNumber('expiringSoon', stats.expiring_soon);
-            animateNumber('activeToday', stats.active_users);
-            
-            // Update progress bars
-            const maxUsers = Math.max(stats.total_users, 100);
-            updateProgressBar('totalUsersProgress', (stats.total_users / maxUsers) * 100);
-            updateProgressBar('trialProgress', ((stats.trial_7_users + stats.trial_30_users) / maxUsers) * 100);
-            updateProgressBar('paidProgress', ((stats.monthly_users + stats.yearly_users + stats.lifetime_users) / maxUsers) * 100);
-            updateProgressBar('revenueProgress', Math.min((stats.total_revenue.total / 10000) * 100, 100));
-            updateProgressBar('expiringProgress', (stats.expiring_soon / maxUsers) * 100);
-            updateProgressBar('activeTodayProgress', (stats.active_users / maxUsers) * 100);
-        }
-        
-        function animateNumber(elementId, finalValue, prefix = '') {
-            const element = document.getElementById(elementId);
-            const startValue = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
-            const duration = 1000;
-            const step = (finalValue - startValue) / (duration / 16);
-            let currentValue = startValue;
-            
-            const timer = setInterval(() => {
-                currentValue += step;
-                if ((step > 0 && currentValue >= finalValue) || (step < 0 && currentValue <= finalValue)) {
-                    currentValue = finalValue;
-                    clearInterval(timer);
-                }
-                element.textContent = prefix + Math.floor(currentValue).toLocaleString();
-            }, 16);
-        }
-        
-        function updateProgressBar(elementId, percentage) {
-            const element = document.getElementById(elementId);
-            element.style.width = Math.min(percentage, 100) + '%';
+            document.getElementById('totalUsers').textContent = stats.total_users || 0;
+            document.getElementById('trialUsers').textContent = stats.trial_users || 0;
+            document.getElementById('paidUsers').textContent = stats.paid_users || 0;
+            document.getElementById('totalRevenue').textContent = `$${stats.total_revenue?.total || 0}`;
         }
         
         function updateUsersTable(users) {
@@ -954,7 +899,9 @@
                 const daysRemaining = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
                 const lastSeen = user.last_seen ? new Date(user.last_seen).toLocaleDateString() : 'Never';
                 
-                // Determine status color and icon
+                // Account type styling
+                const accountTypeClass = `account-${user.account_type || 'unknown'}`;
+                
                 let statusClass = 'status-' + user.status;
                 let statusIcon = 'fas fa-circle';
                 
@@ -967,14 +914,32 @@
                 
                 row.innerHTML = `
                     <td>
-                        <input type="checkbox" class="user-checkbox" value="${user.account_number}">
-                        <strong>${user.account_number}</strong>
+                        <div class="account-info">
+                            <div class="account-number">${user.account_number}</div>
+                            <div class="account-name">${user.account_name || 'Unknown'}</div>
+                            <span class="account-type-badge ${accountTypeClass}">
+                                ${(user.account_type || 'unknown').toUpperCase()}
+                            </span>
+                        </div>
                     </td>
                     <td>
-                        <div style="font-size: 0.9rem;">${user.broker_name}</div>
-                        <div style="font-size: 0.8rem; color: #666;">${user.ea_version || 'Unknown version'}</div>
+                        <div class="broker-info">
+                            <div class="broker-name">${user.broker_name || 'Unknown'}</div>
+                            <div class="server-name">${user.server_name || 'Unknown Server'}</div>
+                        </div>
                     </td>
-                    <td>$${user.account_balance ? parseFloat(user.account_balance).toLocaleString() : 'N/A'}</td>
+                    <td>
+                        <div class="ea-info">
+                            <div class="ea-name">${user.ea_name || 'Mark8Pips EA'}</div>
+                            <div class="ea-version">v${user.ea_version || 'Unknown'}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="balance-info">
+                            <div class="balance-amount">$${user.account_balance ? parseFloat(user.account_balance).toLocaleString() : '0'}</div>
+                            <div class="balance-currency">${user.account_currency || 'USD'}</div>
+                        </div>
+                    </td>
                     <td>
                         <span class="status-badge ${statusClass}">
                             <i class="${statusIcon}"></i> ${user.status.toUpperCase()}
@@ -982,32 +947,26 @@
                     </td>
                     <td>
                         <div style="font-weight: 600;">${user.subscription_type.replace('_', '-').toUpperCase()}</div>
-                        <div style="font-size: 0.8rem; color: #666;">${user.validation_count || 0} validations</div>
-                    </td>
-                    <td>
-                        <div style="font-weight: 600; color: ${daysRemaining <= 7 ? '#e74c3c' : '#27ae60'}">
-                            ${expiryDate.toLocaleDateString()}
-                        </div>
-                        <div style="font-size: 0.8rem; color: #666;">
+                        <div style="font-size: 0.8rem; color: ${daysRemaining <= 7 ? '#e74c3c' : '#27ae60'};">
                             ${daysRemaining > 0 ? daysRemaining + ' days left' : 'Expired ' + Math.abs(daysRemaining) + ' days ago'}
                         </div>
                     </td>
                     <td>
-                        <div style="font-size: 0.9rem;">Last: ${lastSeen}</div>
-                        <div style="font-size: 0.8rem; color: #666;">Joined: ${new Date(user.first_seen).toLocaleDateString()}</div>
+                        <div class="activity-info">
+                            <div class="last-seen">Last: ${lastSeen}</div>
+                            <div class="validation-count">${user.validation_count || 0} validations</div>
+                            <div class="client-ip">${user.client_ip || 'Unknown IP'}</div>
+                        </div>
                     </td>
                     <td>
                         <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
-                            <button class="btn btn-success btn-sm tooltip" onclick="upgradeUser(${user.account_number})" title="Upgrade subscription">
+                            <button class="btn btn-success btn-sm" onclick="upgradeUser(${user.account_number})" title="Upgrade subscription">
                                 <i class="fas fa-arrow-up"></i>
                             </button>
-                            <button class="btn btn-info btn-sm tooltip" onclick="extendUser(${user.account_number})" title="Extend license">
+                            <button class="btn btn-info btn-sm" onclick="extendUser(${user.account_number})" title="Extend license">
                                 <i class="fas fa-clock"></i>
                             </button>
-                            <button class="btn btn-warning btn-sm tooltip" onclick="editUser(${user.account_number})" title="Edit user details">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm tooltip" onclick="suspendUser(${user.account_number})" title="Suspend user">
+                            <button class="btn btn-danger btn-sm" onclick="suspendUser(${user.account_number})" title="Suspend user">
                                 <i class="fas fa-ban"></i>
                             </button>
                         </div>
@@ -1017,63 +976,12 @@
             });
         }
         
-        function updateRecentActivity(recentUsers) {
-            const container = document.getElementById('recentActivity');
-            
-            if (!recentUsers || recentUsers.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #666;">
-                        <i class="fas fa-clock" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i><br>
-                        No recent activity found.
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            recentUsers.slice(0, 5).forEach(user => {
-                const timeAgo = getTimeAgo(new Date(user.last_seen || user.first_seen));
-                html += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e1e8ed;">
-                        <div>
-                            <strong>Account ${user.account_number}</strong> - ${user.broker_name}
-                            <div style="font-size: 0.8rem; color: #666;">
-                                ${user.subscription_type.replace('_', '-').toUpperCase()} plan
-                            </div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 0.9rem; color: #666;">${timeAgo}</div>
-                            <span class="status-badge status-${user.status}" style="font-size: 0.7rem;">
-                                ${user.status}
-                            </span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-        
-        function getTimeAgo(date) {
-            const now = new Date();
-            const diffInSeconds = Math.floor((now - date) / 1000);
-            
-            if (diffInSeconds < 60) return 'Just now';
-            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} min ago`;
-            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
-            return `${Math.floor(diffInSeconds / 86400)} days ago`;
-        }
-        
         function upgradeUser(accountNumber) {
             const user = currentUsers.find(u => u.account_number == accountNumber);
             if (!user) return;
             
             document.getElementById('modalTitle').textContent = 'Upgrade User Subscription';
             document.getElementById('modalAccountNumber').value = accountNumber;
-            document.getElementById('modalAccountNumber').readOnly = true;
-            document.getElementById('modalBrokerName').value = user.broker_name;
-            document.getElementById('modalBrokerName').readOnly = true;
-            document.getElementById('modalAccountBalance').value = user.account_balance || '';
             document.getElementById('modalSubscriptionType').value = user.subscription_type;
             document.getElementById('submitButtonText').textContent = 'Upgrade User';
             document.getElementById('extensionGroup').style.display = 'none';
@@ -1087,10 +995,6 @@
             
             document.getElementById('modalTitle').textContent = 'Extend User License';
             document.getElementById('modalAccountNumber').value = accountNumber;
-            document.getElementById('modalAccountNumber').readOnly = true;
-            document.getElementById('modalBrokerName').value = user.broker_name;
-            document.getElementById('modalBrokerName').readOnly = true;
-            document.getElementById('modalAccountBalance').value = user.account_balance || '';
             document.getElementById('modalSubscriptionType').value = user.subscription_type;
             document.getElementById('modalSubscriptionType').disabled = true;
             document.getElementById('submitButtonText').textContent = 'Extend License';
@@ -1099,40 +1003,11 @@
             document.getElementById('userModal').style.display = 'block';
         }
         
-        function editUser(accountNumber) {
-            const user = currentUsers.find(u => u.account_number == accountNumber);
-            if (!user) return;
-            
-            document.getElementById('modalTitle').textContent = 'Edit User Details';
-            document.getElementById('modalAccountNumber').value = accountNumber;
-            document.getElementById('modalAccountNumber').readOnly = true;
-            document.getElementById('modalBrokerName').value = user.broker_name;
-            document.getElementById('modalBrokerName').readOnly = false;
-            document.getElementById('modalAccountBalance').value = user.account_balance || '';
-            document.getElementById('modalSubscriptionType').value = user.subscription_type;
-            document.getElementById('modalSubscriptionType').disabled = false;
-            document.getElementById('submitButtonText').textContent = 'Save Changes';
-            document.getElementById('extensionGroup').style.display = 'none';
-            
-            document.getElementById('userModal').style.display = 'block';
-        }
-        
-        function openCreateUserModal() {
-            document.getElementById('modalTitle').textContent = 'Create New User';
-            document.getElementById('userForm').reset();
-            document.getElementById('modalAccountNumber').readOnly = false;
-            document.getElementById('modalBrokerName').readOnly = false;
-            document.getElementById('modalSubscriptionType').disabled = false;
-            document.getElementById('submitButtonText').textContent = 'Create User';
-            document.getElementById('extensionGroup').style.display = 'none';
-            
-            document.getElementById('userModal').style.display = 'block';
-        }
-        
         function closeModal() {
             document.getElementById('userModal').style.display = 'none';
             document.getElementById('modalError').style.display = 'none';
             document.getElementById('modalSuccess').style.display = 'none';
+            document.getElementById('modalSubscriptionType').disabled = false;
         }
         
         // Handle form submission
@@ -1140,28 +1015,17 @@
             e.preventDefault();
             
             const accountNumber = document.getElementById('modalAccountNumber').value;
-            const brokerName = document.getElementById('modalBrokerName').value;
             const subscriptionType = document.getElementById('modalSubscriptionType').value;
-            const accountBalance = document.getElementById('modalAccountBalance').value;
             const extensionDays = document.getElementById('modalExtensionDays').value;
             const extensionMonths = document.getElementById('modalExtensionMonths').value;
             
             const isExtension = document.getElementById('extensionGroup').style.display !== 'none';
-            const isCreating = document.getElementById('modalTitle').textContent.includes('Create');
             
             try {
-                let endpoint = `${API_BASE}/api/admin/dashboard`;
-                let action = 'upgrade';
-                
-                if (isExtension) {
-                    action = 'extend';
-                }
-                
                 const body = {
-                    action: action,
+                    action: isExtension ? 'extend' : 'upgrade',
                     account_number: parseInt(accountNumber),
-                    subscription_type: subscriptionType,
-                    account_balance: parseFloat(accountBalance) || 0
+                    subscription_type: subscriptionType
                 };
                 
                 if (isExtension) {
@@ -1169,13 +1033,7 @@
                     if (extensionMonths) body.months = parseInt(extensionMonths);
                 }
                 
-                if (isCreating) {
-                    // For creating new users, we need a different endpoint
-                    endpoint = `${API_BASE}/api/admin/create-user`;
-                    body.broker_name = brokerName;
-                }
-                
-                const response = await fetch(endpoint, {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -1201,9 +1059,7 @@
         });
         
         async function suspendUser(accountNumber) {
-            if (!confirm('Are you sure you want to suspend this user? They will not be able to use the EA until reactivated.')) {
-                return;
-            }
+            if (!confirm('Are you sure you want to suspend this user?')) return;
             
             try {
                 const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
@@ -1221,39 +1077,15 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    showNotification('User suspended successfully!', 'success');
+                    alert('User suspended successfully!');
                     loadDashboardData();
                 } else {
-                    showNotification(result.message || 'Failed to suspend user', 'error');
+                    alert('Failed to suspend user: ' + result.message);
                 }
             } catch (error) {
-                showNotification('Network error occurred', 'error');
+                alert('Network error occurred');
             }
         }
-        
-        function applyFilters() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-            const planFilter = document.getElementById('planFilter').value;
-            
-            filteredUsers = currentUsers.filter(user => {
-                const matchesSearch = !searchTerm || 
-                    user.account_number.toString().includes(searchTerm) ||
-                    user.broker_name.toLowerCase().includes(searchTerm);
-                
-                const matchesStatus = !statusFilter || user.status === statusFilter;
-                const matchesPlan = !planFilter || user.subscription_type === planFilter;
-                
-                return matchesSearch && matchesStatus && matchesPlan;
-            });
-            
-            updateUsersTable(filteredUsers);
-        }
-        
-        // Search functionality
-        document.getElementById('userSearch').addEventListener('input', applyFilters);
-        document.getElementById('statusFilter').addEventListener('change', applyFilters);
-        document.getElementById('planFilter').addEventListener('change', applyFilters);
         
         function showError(elementId, message) {
             const element = document.getElementById(elementId);
@@ -1269,79 +1101,9 @@
             setTimeout(() => element.style.display = 'none', 5000);
         }
         
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `alert alert-${type}`;
-            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}`;
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.right = '20px';
-            notification.style.zIndex = '9999';
-            notification.style.minWidth = '300px';
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 4000);
-        }
-        
-        function showLoading() {
-            // Implementation for loading state
-        }
-        
-        function hideLoading() {
-            // Implementation for hiding loading state
-        }
-        
-        function loadUsersData() {
-            updateUsersTable(filteredUsers);
-        }
-        
-        function refreshActivity() {
-            loadDashboardData();
-        }
-        
-        function toggleTheme() {
-            // Implementation for dark/light theme toggle
-            showNotification('Theme toggle coming soon!', 'info');
-        }
-        
-        // Placeholder functions for future features
-        function bulkOperation() {
-            showNotification('Bulk operations panel coming soon!', 'info');
-        }
-        
         function exportData() {
-            showNotification('Data export feature coming soon!', 'info');
+            alert('Export functionality coming soon!');
         }
-        
-        function sendAnnouncement() {
-            showNotification('Announcement system coming soon!', 'info');
-        }
-        
-        function saveTrialSettings() {
-            showNotification('Trial settings saved!', 'success');
-        }
-        
-        function savePricingSettings() {
-            showNotification('Pricing settings saved!', 'success');
-        }
-        
-        // Auto-refresh dashboard every 5 minutes
-        setInterval(() => {
-            if (authToken && document.getElementById('dashboard').style.display !== 'none') {
-                loadDashboardData();
-            }
-        }, 300000);
-        
-        // Handle select all checkbox
-        document.getElementById('selectAll').addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('.user-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
-        });
         
         // Close modal when clicking outside
         window.onclick = function(event) {
@@ -1350,6 +1112,13 @@
                 closeModal();
             }
         }
+        
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            if (authToken && document.getElementById('dashboard').style.display !== 'none') {
+                loadDashboardData();
+            }
+        }, 300000);
     </script>
 </body>
 </html>
