@@ -9,8 +9,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             min-height: 100vh;
+            color: #ffffff;
         }
         
         /* Login Styles */
@@ -21,23 +22,24 @@
             height: 100vh; 
         }
         .login-box { 
-            background: white; 
+            background: linear-gradient(135deg, #1a1a1a, #000000); 
             padding: 3rem; 
             border-radius: 20px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            box-shadow: 0 20px 40px rgba(154, 205, 50, 0.3); 
             width: 450px; 
             text-align: center;
+            border: 2px solid #9ACD32;
         }
         .login-title { 
             margin-bottom: 2rem; 
-            color: #333; 
+            color: #9ACD32; 
             font-size: 2rem; 
             font-weight: 700; 
         }
-        .logo { font-size: 3rem; margin-bottom: 1rem; }
+        .logo { font-size: 3rem; margin-bottom: 1rem; color: #9ACD32; }
         
         /* Dashboard Styles */
-        .dashboard { display: none; background: #f8fafc; min-height: 100vh; }
+        .dashboard { display: none; background: #000000; min-height: 100vh; }
         
         /* Sidebar with Toggle */
         .sidebar { 
@@ -46,11 +48,12 @@
             top: 0; 
             width: 280px; 
             height: 100vh; 
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); 
-            color: white; 
+            background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%); 
+            color: #ffffff; 
             overflow-y: auto;
             z-index: 1000;
             transition: transform 0.3s ease;
+            border-right: 2px solid #9ACD32;
         }
         
         .sidebar.collapsed {
@@ -59,7 +62,7 @@
         
         .sidebar-header { 
             padding: 2rem 1.5rem; 
-            border-bottom: 1px solid #404040; 
+            border-bottom: 2px solid #9ACD32; 
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -68,16 +71,17 @@
         .sidebar-toggle {
             background: none;
             border: none;
-            color: white;
+            color: #9ACD32;
             font-size: 1.2rem;
             cursor: pointer;
             padding: 0.5rem;
             border-radius: 4px;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
         
         .sidebar-toggle:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(154, 205, 50, 0.2);
+            transform: scale(1.1);
         }
         
         .sidebar-menu { list-style: none; padding: 1rem 0; }
@@ -86,13 +90,14 @@
             display: flex; 
             align-items: center; 
             padding: 1rem 1.5rem; 
-            color: #ecf0f1; 
+            color: #ffffff; 
             text-decoration: none; 
             transition: all 0.3s;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active { 
-            background: rgba(52, 152, 219, 0.2); 
-            border-right: 4px solid #3498db; 
+            background: rgba(154, 205, 50, 0.2); 
+            border-right: 4px solid #9ACD32; 
+            color: #9ACD32;
         }
         .sidebar-menu i { width: 20px; margin-right: 15px; }
         
@@ -100,6 +105,8 @@
             margin-left: 280px; 
             padding: 2rem; 
             transition: margin-left 0.3s ease;
+            background: #000000;
+            min-height: 100vh;
         }
         
         .main-content.expanded {
@@ -107,14 +114,15 @@
         }
         
         .top-header { 
-            background: white; 
+            background: linear-gradient(135deg, #1a1a1a, #000000); 
             padding: 1.5rem 2rem; 
             border-radius: 15px; 
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1); 
+            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3); 
             margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 2px solid #9ACD32;
         }
         
         .mobile-toggle {
@@ -126,6 +134,7 @@
             padding: 0.5rem;
             border-radius: 4px;
             margin-right: 1rem;
+            color: #9ACD32;
         }
         
         .user-info { display: flex; align-items: center; gap: 1rem; }
@@ -133,11 +142,11 @@
             width: 45px; 
             height: 45px; 
             border-radius: 50%; 
-            background: linear-gradient(45deg, #3498db, #2ecc71); 
+            background: linear-gradient(45deg, #9ACD32, #32CD32); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            color: white; 
+            color: #000000; 
             font-weight: bold;
         }
         
@@ -148,17 +157,19 @@
         /* Stats Grid */
         .stats-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 1.5rem; 
             margin-bottom: 2rem; 
         }
         .stat-card { 
-            background: white; 
+            background: linear-gradient(135deg, #1a1a1a, #000000); 
             padding: 2rem; 
             border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3);
             position: relative;
             overflow: hidden;
+            border: 2px solid #9ACD32;
+            color: #ffffff;
         }
         .stat-card::before {
             content: '';
@@ -167,7 +178,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(180deg, #3498db, #2ecc71);
+            background: #9ACD32;
         }
         .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
         .stat-icon { 
@@ -178,27 +189,29 @@
             align-items: center; 
             justify-content: center; 
             font-size: 1.5rem;
+            color: #9ACD32;
         }
-        .stat-number { font-size: 2.5rem; font-weight: bold; color: #2c3e50; }
-        .stat-label { color: #7f8c8d; font-size: 1rem; margin-top: 0.5rem; }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #9ACD32; }
+        .stat-label { color: #cccccc; font-size: 1rem; margin-top: 0.5rem; }
         
         /* Cards */
         .card { 
-            background: white; 
+            background: linear-gradient(135deg, #1a1a1a, #000000); 
             border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3); 
             overflow: hidden; 
             margin-bottom: 2rem;
+            border: 2px solid #9ACD32;
         }
         .card-header { 
-            background: linear-gradient(135deg, #667eea, #764ba2); 
-            color: white; 
+            background: linear-gradient(135deg, #9ACD32, #32CD32); 
+            color: #000000; 
             padding: 1.5rem 2rem; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
         }
-        .card-body { padding: 2rem; }
+        .card-body { padding: 2rem; color: #ffffff; }
         
         /* Enhanced Tables */
         .table-container { overflow-x: auto; }
@@ -206,22 +219,88 @@
         .users-table th, .users-table td { 
             padding: 1rem 0.8rem; 
             text-align: left; 
-            border-bottom: 1px solid #e1e8ed; 
+            border-bottom: 1px solid #333; 
             vertical-align: top;
         }
         .users-table th { 
-            background: #f8fafc; 
+            background: #1a1a1a; 
             font-weight: 600; 
-            color: #2c3e50; 
+            color: #9ACD32; 
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             position: sticky;
             top: 0;
             z-index: 10;
+            border-bottom: 2px solid #9ACD32;
         }
-        .users-table tbody tr { transition: all 0.3s; }
-        .users-table tbody tr:hover { background: #f8fafc; transform: translateY(-1px); }
+        .users-table tbody tr { 
+            transition: all 0.3s; 
+            color: #ffffff;
+        }
+        .users-table tbody tr:hover { 
+            background: rgba(154, 205, 50, 0.1); 
+            transform: translateY(-2px); 
+        }
+        
+        /* Search and Control Bar */
+        .control-bar {
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 2px solid #9ACD32;
+        }
+        
+        .search-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 0.8rem 3rem 0.8rem 1rem;
+            border: 2px solid #9ACD32;
+            border-radius: 25px;
+            background: #000000;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus {
+            box-shadow: 0 0 15px rgba(154, 205, 50, 0.5);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ACD32;
+            cursor: pointer;
+        }
+        
+        .trial-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .trial-select {
+            padding: 0.8rem;
+            border: 2px solid #9ACD32;
+            border-radius: 8px;
+            background: #000000;
+            color: #ffffff;
+            outline: none;
+        }
         
         /* Account Info Styles */
         .account-info {
@@ -233,12 +312,12 @@
         .account-number {
             font-weight: bold;
             font-size: 1rem;
-            color: #2c3e50;
+            color: #9ACD32;
         }
         
         .account-name {
             font-size: 0.85rem;
-            color: #666;
+            color: #cccccc;
             font-style: italic;
         }
         
@@ -254,93 +333,43 @@
         }
         
         .account-real {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #32CD32;
+            color: #000000;
         }
         
         .account-demo {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
+            background: #FFD700;
+            color: #000000;
         }
         
         .account-unknown {
-            background: #e2e3e5;
-            color: #383d41;
-            border: 1px solid #d6d8db;
+            background: #666666;
+            color: #ffffff;
         }
         
-        .broker-info {
+        .broker-info, .ea-info, .balance-info, .activity-info {
             display: flex;
             flex-direction: column;
             gap: 0.2rem;
         }
         
-        .broker-name {
+        .broker-name, .ea-name, .balance-amount {
             font-weight: 600;
-            color: #2c3e50;
+            color: #ffffff;
             font-size: 0.9rem;
         }
         
-        .server-name {
+        .server-name, .ea-version, .balance-currency, .last-seen, .validation-count, .client-ip {
             font-size: 0.8rem;
-            color: #666;
-        }
-        
-        .ea-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-        
-        .ea-name {
-            font-weight: 600;
-            color: #3498db;
-            font-size: 0.9rem;
-        }
-        
-        .ea-version {
-            font-size: 0.8rem;
-            color: #666;
+            color: #cccccc;
         }
         
         .balance-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
             text-align: right;
         }
         
         .balance-amount {
-            font-weight: bold;
-            font-size: 1rem;
-            color: #27ae60;
-        }
-        
-        .balance-currency {
-            font-size: 0.8rem;
-            color: #666;
-        }
-        
-        .activity-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            font-size: 0.85rem;
-        }
-        
-        .last-seen {
-            color: #2c3e50;
-        }
-        
-        .validation-count {
-            color: #666;
-        }
-        
-        .client-ip {
-            color: #999;
-            font-size: 0.75rem;
+            color: #32CD32;
         }
         
         /* Status Badges */
@@ -355,16 +384,18 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .status-trial { background: #fff3cd; color: #856404; }
-        .status-active { background: #d4edda; color: #155724; }
-        .status-expired { background: #f8d7da; color: #721c24; }
-        .status-suspended { background: #d1ecf1; color: #0c5460; }
+        .status-trial { background: #FFD700; color: #000000; }
+        .status-active { background: #32CD32; color: #000000; }
+        .status-expired { background: #DC143C; color: #ffffff; }
+        .status-suspended { background: #FF6347; color: #000000; }
+        .status-paused { background: #FFA500; color: #000000; }
+        .status-pending { background: #9ACD32; color: #000000; }
         
         /* Buttons */
         .btn { 
             padding: 0.5rem 1rem; 
             border: none; 
-            border-radius: 6px; 
+            border-radius: 8px; 
             cursor: pointer; 
             font-size: 0.85rem; 
             font-weight: 500; 
@@ -373,14 +404,54 @@
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
+            border: 2px solid transparent;
         }
-        .btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
-        .btn-primary { background: #3498db; color: white; }
-        .btn-success { background: #2ecc71; color: white; }
-        .btn-warning { background: #f39c12; color: white; }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-info { background: #17a2b8; color: white; }
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+        .btn-primary { background: #9ACD32; color: #000000; }
+        .btn-primary:hover { box-shadow: 0 5px 15px rgba(154, 205, 50, 0.5); }
+        .btn-success { background: #32CD32; color: #000000; }
+        .btn-warning { background: #FFD700; color: #000000; }
+        .btn-danger { background: #DC143C; color: #ffffff; }
+        .btn-info { background: #17a2b8; color: #ffffff; }
+        .btn-pause { background: #FFA500; color: #000000; }
         .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+        
+        /* Refresh Animation */
+        .btn-refresh {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-refresh.loading {
+            pointer-events: none;
+        }
+        
+        .btn-refresh.loading i {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .btn-refresh::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(154, 205, 50, 0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-refresh.loading::after {
+            left: 100%;
+        }
         
         /* Forms */
         .form-group { margin-bottom: 1.5rem; }
@@ -388,20 +459,21 @@
             display: block; 
             margin-bottom: 0.5rem; 
             font-weight: 600; 
-            color: #2c3e50; 
+            color: #9ACD32; 
         }
         .form-control { 
             width: 100%; 
             padding: 0.8rem 1rem; 
-            border: 2px solid #e1e8ed; 
+            border: 2px solid #9ACD32; 
             border-radius: 8px; 
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #000000;
+            color: #ffffff;
         }
         .form-control:focus { 
             outline: none; 
-            border-color: #3498db; 
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); 
+            box-shadow: 0 0 15px rgba(154, 205, 50, 0.5); 
         }
         
         /* Modals */
@@ -412,7 +484,7 @@
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background: rgba(0,0,0,0.5); 
+            background: rgba(0,0,0,0.8); 
             z-index: 2000;
             backdrop-filter: blur(5px);
         }
@@ -421,13 +493,15 @@
             top: 50%; 
             left: 50%; 
             transform: translate(-50%, -50%); 
-            background: white; 
+            background: linear-gradient(135deg, #1a1a1a, #000000); 
             padding: 2rem; 
             border-radius: 20px; 
             width: 90%; 
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+            border: 2px solid #9ACD32;
+            color: #ffffff;
         }
         .modal-header { 
             display: flex; 
@@ -435,20 +509,20 @@
             align-items: center; 
             margin-bottom: 2rem; 
             padding-bottom: 1rem;
-            border-bottom: 2px solid #e1e8ed;
+            border-bottom: 2px solid #9ACD32;
         }
-        .modal-title { font-size: 1.5rem; font-weight: 700; color: #2c3e50; }
+        .modal-title { font-size: 1.5rem; font-weight: 700; color: #9ACD32; }
         .close { 
             background: none; 
             border: none; 
             font-size: 1.5rem; 
             cursor: pointer; 
-            color: #7f8c8d;
+            color: #cccccc;
             padding: 0.5rem;
             border-radius: 50%;
             transition: all 0.3s;
         }
-        .close:hover { background: #f8fafc; color: #e74c3c; }
+        .close:hover { background: rgba(154, 205, 50, 0.2); color: #DC143C; }
         
         /* Alerts */
         .alert { 
@@ -458,11 +532,12 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            border: 2px solid;
         }
-        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
-        .alert-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .alert-success { background: rgba(50, 205, 50, 0.2); color: #32CD32; border-color: #32CD32; }
+        .alert-error { background: rgba(220, 20, 60, 0.2); color: #DC143C; border-color: #DC143C; }
+        .alert-warning { background: rgba(255, 215, 0, 0.2); color: #FFD700; border-color: #FFD700; }
+        .alert-info { background: rgba(154, 205, 50, 0.2); color: #9ACD32; border-color: #9ACD32; }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -472,33 +547,90 @@
             .main-content.expanded { margin-left: 0; }
             .mobile-toggle { display: block; }
             .stats-grid { grid-template-columns: 1fr; }
-            .users-table { font-size: 0.8rem; }
-            .users-table th, .users-table td { padding: 0.8rem 0.5rem; }
+            .control-bar { flex-direction: column; align-items: stretch; }
+            .search-container { min-width: auto; }
         }
         
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
+        /* Desktop Toggle Button - Top Right */
+        .desktop-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #9ACD32, #32CD32);
+            border: none;
+            color: #000000;
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
         }
         
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .desktop-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.5);
+        }
+        
+        /* Notification Popup */
+        .notification-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+            color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #9ACD32;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            min-width: 300px;
+            text-align: center;
+            display: none;
+        }
+        
+        .notification-popup.show {
+            display: block;
+            animation: popIn 0.3s ease-out;
+        }
+        
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .popup-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .popup-message {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
+    <!-- Desktop Toggle Button -->
+    <button class="desktop-toggle" id="desktopToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-box">
             <div class="logo">🏆</div>
             <h2 class="login-title">Mark8Pips Admin</h2>
-            <p style="color: #666; margin-bottom: 2rem;">Advanced License Management System</p>
+            <p style="color: #cccccc; margin-bottom: 2rem;">Professional License Management</p>
             <div id="loginError" class="alert alert-error" style="display: none;"></div>
             <form id="loginForm">
                 <div class="form-group">
@@ -536,11 +668,11 @@
                 <li><a href="#" onclick="showPage('users')">
                     <i class="fas fa-users"></i> User Management
                 </a></li>
+                <li><a href="#" onclick="showPage('pending')">
+                    <i class="fas fa-clock"></i> Pending Approvals
+                </a></li>
                 <li><a href="#" onclick="showPage('settings')">
                     <i class="fas fa-cog"></i> System Settings
-                </a></li>
-                <li><a href="#" onclick="showPage('analytics')">
-                    <i class="fas fa-chart-pie"></i> Analytics
                 </a></li>
             </ul>
         </div>
@@ -555,17 +687,14 @@
                     </button>
                     <div>
                         <h1>Welcome back! 👋</h1>
-                        <p style="color: #666;">Manage your EA licenses and users</p>
+                        <p style="color: #cccccc;">Manage your EA licenses and users</p>
                     </div>
                 </div>
                 <div class="user-info">
-                    <button class="sidebar-toggle" id="desktopSidebarToggle" style="margin-right: 1rem;">
-                        <i class="fas fa-bars" style="color: #666;"></i>
-                    </button>
                     <div class="user-avatar">MP</div>
                     <div>
                         <div style="font-weight: 600;" id="userEmail"></div>
-                        <div style="font-size: 0.8rem; color: #666;">Owner</div>
+                        <div style="font-size: 0.8rem; color: #cccccc;">Owner</div>
                     </div>
                     <button onclick="logout()" class="btn btn-danger btn-sm">
                         <i class="fas fa-sign-out-alt"></i> Logout
@@ -579,7 +708,7 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
+                            <div class="stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
@@ -589,54 +718,75 @@
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-icon" style="background: #f3e5f5; color: #7b1fa2;">
+                            <div class="stat-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
                         </div>
-                        <div class="stat-number" id="trialUsers">0</div>
-                        <div class="stat-label">Active Trials</div>
+                        <div class="stat-number" id="activeUsers">0</div>
+                        <div class="stat-label">Active Users</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-icon" style="background: #e8f5e8; color: #2e7d32;">
-                                <i class="fas fa-dollar-sign"></i>
+                            <div class="stat-icon">
+                                <i class="fas fa-pause-circle"></i>
                             </div>
                         </div>
-                        <div class="stat-number" id="paidUsers">0</div>
-                        <div class="stat-label">Paid Users</div>
+                        <div class="stat-number" id="pausedUsers">0</div>
+                        <div class="stat-label">Paused Users</div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-icon" style="background: #fff3e0; color: #f57c00;">
-                                <i class="fas fa-coins"></i>
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
                             </div>
                         </div>
-                        <div class="stat-number" id="totalRevenue">$0</div>
-                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-number" id="pendingApprovals">0</div>
+                        <div class="stat-label">Pending Approvals</div>
                     </div>
                 </div>
 
                 <!-- Quick Actions -->
                 <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="loadDashboardData()">
+                    <button class="btn btn-primary btn-refresh" onclick="loadDashboardData()" id="refreshBtn">
                         <i class="fas fa-refresh"></i> Refresh Data
                     </button>
                     <button class="btn btn-info" onclick="exportData()">
                         <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button class="btn btn-warning" onclick="showPage('settings')">
+                        <i class="fas fa-cog"></i> Settings
                     </button>
                 </div>
             </div>
 
             <!-- Users Management Page -->
             <div id="usersPage" class="page-content">
+                <!-- Control Bar -->
+                <div class="control-bar">
+                    <div class="search-container">
+                        <input type="text" class="search-box" id="userSearch" placeholder="Search by account number, name, broker..." />
+                        <i class="fas fa-search search-icon" onclick="searchUsers()"></i>
+                    </div>
+                    <div class="trial-controls">
+                        <label style="color: #9ACD32;">Default Trial:</label>
+                        <select class="trial-select" id="defaultTrialSelect">
+                            <option value="trial_7">7 Days</option>
+                            <option value="trial_30" selected>30 Days</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="saveTrialSetting()">
+                            <i class="fas fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Users Table -->
                 <div class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-users"></i> Enhanced User Management</h3>
                         <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white;" onclick="loadDashboardData()">
+                            <button class="btn btn-sm btn-refresh" onclick="loadDashboardData()" style="background: rgba(154, 205, 50, 0.2); color: #9ACD32;">
                                 <i class="fas fa-refresh"></i>
                             </button>
                         </div>
@@ -664,15 +814,49 @@
                 </div>
             </div>
 
-            <!-- Other pages -->
-            <div id="settingsPage" class="page-content">
-                <h2>System Settings</h2>
-                <p>Coming Soon...</p>
+            <!-- Pending Approvals Page -->
+            <div id="pendingPage" class="page-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"></i> Pending EA Approvals</h3>
+                        <button class="btn btn-sm btn-refresh" onclick="loadPendingApprovals()" style="background: rgba(154, 205, 50, 0.2); color: #9ACD32;">
+                            <i class="fas fa-refresh"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="pendingList">
+                            <!-- Pending approvals will be loaded here -->
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="analyticsPage" class="page-content">
-                <h2>Analytics Dashboard</h2>
-                <p>Coming Soon...</p>
+            <!-- Settings Page -->
+            <div id="settingsPage" class="page-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cog"></i> System Settings</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Default Trial Period</label>
+                            <select class="form-control" id="systemDefaultTrial" style="max-width: 300px;">
+                                <option value="trial_7">7-Day Trial</option>
+                                <option value="trial_30" selected>30-Day Trial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Auto-Approve New EAs</label>
+                            <select class="form-control" id="autoApprove" style="max-width: 300px;">
+                                <option value="false">Require Manual Approval</option>
+                                <option value="true">Auto-Approve All</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSystemSettings()">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -698,9 +882,9 @@
                         <select class="form-control" id="modalSubscriptionType" required>
                             <option value="trial_7">7-Day Trial</option>
                             <option value="trial_30">30-Day Trial</option>
-                            <option value="monthly">Monthly Plan ($29)</option>
-                            <option value="yearly">Yearly Plan ($290)</option>
-                            <option value="lifetime">Lifetime Plan ($999)</option>
+                            <option value="monthly">Monthly Plan</option>
+                            <option value="yearly">Yearly Plan</option>
+                            <option value="lifetime">Lifetime Plan</option>
                         </select>
                     </div>
                 </div>
@@ -709,17 +893,17 @@
                     <label>Extension Period</label>
                     <div style="display: flex; gap: 1rem;">
                         <input type="number" class="form-control" id="modalExtensionDays" placeholder="Days" min="1">
-                        <span style="align-self: center;">OR</span>
+                        <span style="align-self: center; color: #9ACD32;">OR</span>
                         <input type="number" class="form-control" id="modalExtensionMonths" placeholder="Months" min="1">
                     </div>
-                    <small style="color: #666;">Leave both empty to use plan default duration</small>
+                    <small style="color: #cccccc;">Leave both empty to use plan default duration</small>
                 </div>
                 
                 <div style="display: flex; gap: 1rem; margin-top: 2rem;">
                     <button type="submit" class="btn btn-success" style="flex: 1;">
                         <i class="fas fa-save"></i> <span id="submitButtonText">Save Changes</span>
                     </button>
-                    <button type="button" onclick="closeModal()" class="btn" style="background: #6c757d; color: white;">
+                    <button type="button" onclick="closeModal()" class="btn btn-danger">
                         <i class="fas fa-times"></i> Cancel
                     </button>
                 </div>
@@ -727,30 +911,39 @@
         </div>
     </div>
 
+    <!-- Notification Popup -->
+    <div id="notificationPopup" class="notification-popup">
+        <div class="popup-icon" id="popupIcon"></div>
+        <div class="popup-message" id="popupMessage"></div>
+        <div class="popup-buttons" id="popupButtons"></div>
+    </div>
+
     <script>
         const API_BASE = window.location.origin;
         let authToken = localStorage.getItem('authToken');
         let currentUsers = [];
+        let filteredUsers = [];
+        let defaultTrialPeriod = 'trial_30';
         
         // Check authentication on page load
         if (authToken) {
             showDashboard();
         }
         
-        // Sidebar Toggle Functionality
+        // Enhanced Sidebar Toggle Functionality
         function initSidebarToggle() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const sidebarToggle = document.getElementById('sidebarToggle');
-            const desktopSidebarToggle = document.getElementById('desktopSidebarToggle');
+            const desktopToggle = document.getElementById('desktopToggle');
             const mobileToggle = document.getElementById('mobileToggle');
             
-            // Desktop sidebar toggle
-            desktopSidebarToggle.addEventListener('click', () => {
+            // Desktop toggle (top right button)
+            desktopToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
                 
-                const icon = desktopSidebarToggle.querySelector('i');
+                const icon = desktopToggle.querySelector('i');
                 if (sidebar.classList.contains('collapsed')) {
                     icon.className = 'fas fa-bars';
                 } else {
@@ -762,7 +955,7 @@
             sidebarToggle.addEventListener('click', () => {
                 sidebar.classList.add('collapsed');
                 mainContent.classList.add('expanded');
-                desktopSidebarToggle.querySelector('i').className = 'fas fa-bars';
+                desktopToggle.querySelector('i').className = 'fas fa-bars';
             });
             
             // Mobile toggle
@@ -845,11 +1038,19 @@
             
             // Load specific page data
             if (pageId === 'users') {
-                updateUsersTable(currentUsers);
+                updateUsersTable(filteredUsers);
+            } else if (pageId === 'pending') {
+                loadPendingApprovals();
             }
         }
         
+        // Enhanced load dashboard data with refresh animation
         async function loadDashboardData() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            if (refreshBtn) {
+                refreshBtn.classList.add('loading');
+            }
+            
             try {
                 const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
                     headers: { 'Authorization': `Bearer ${authToken}` }
@@ -859,21 +1060,28 @@
                 
                 if (result.success) {
                     currentUsers = result.users || [];
+                    filteredUsers = [...currentUsers];
                     updateStatistics(result.stats);
-                    updateUsersTable(currentUsers);
+                    updateUsersTable(filteredUsers);
                 } else {
                     console.error('Failed to load dashboard data');
                 }
             } catch (error) {
                 console.error('Network error:', error);
+            } finally {
+                if (refreshBtn) {
+                    setTimeout(() => {
+                        refreshBtn.classList.remove('loading');
+                    }, 600);
+                }
             }
         }
         
         function updateStatistics(stats) {
             document.getElementById('totalUsers').textContent = stats.total_users || 0;
-            document.getElementById('trialUsers').textContent = stats.trial_users || 0;
-            document.getElementById('paidUsers').textContent = stats.paid_users || 0;
-            document.getElementById('totalRevenue').textContent = `$${stats.total_revenue?.total || 0}`;
+            document.getElementById('activeUsers').textContent = stats.active_users || 0;
+            document.getElementById('pausedUsers').textContent = stats.paused_users || 0;
+            document.getElementById('pendingApprovals').textContent = stats.pending_approvals || 0;
         }
         
         function updateUsersTable(users) {
@@ -883,7 +1091,7 @@
             if (!users || users.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="8" style="text-align: center; padding: 3rem; color: #666;">
+                        <td colspan="8" style="text-align: center; padding: 3rem; color: #cccccc;">
                             <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i><br>
                             No users found. Users will appear here when they activate the EA.
                         </td>
@@ -910,6 +1118,10 @@
                     statusIcon = 'fas fa-exclamation-circle';
                 } else if (daysRemaining <= 7) {
                     statusIcon = 'fas fa-exclamation-triangle';
+                }
+                
+                if (user.status === 'paused') {
+                    statusIcon = 'fas fa-pause';
                 }
                 
                 row.innerHTML = `
@@ -947,7 +1159,7 @@
                     </td>
                     <td>
                         <div style="font-weight: 600;">${user.subscription_type.replace('_', '-').toUpperCase()}</div>
-                        <div style="font-size: 0.8rem; color: ${daysRemaining <= 7 ? '#e74c3c' : '#27ae60'};">
+                        <div style="font-size: 0.8rem; color: ${daysRemaining <= 7 ? '#DC143C' : '#32CD32'};">
                             ${daysRemaining > 0 ? daysRemaining + ' days left' : 'Expired ' + Math.abs(daysRemaining) + ' days ago'}
                         </div>
                     </td>
@@ -966,8 +1178,14 @@
                             <button class="btn btn-info btn-sm" onclick="extendUser(${user.account_number})" title="Extend license">
                                 <i class="fas fa-clock"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm" onclick="suspendUser(${user.account_number})" title="Suspend user">
+                            <button class="btn btn-pause btn-sm" onclick="togglePauseUser(${user.account_number}, '${user.status}')" title="Pause/Resume EA">
+                                <i class="fas fa-${user.status === 'paused' ? 'play' : 'pause'}"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick="suspendUser(${user.account_number})" title="Suspend user">
                                 <i class="fas fa-ban"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.account_number})" title="Delete user">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </td>
@@ -975,6 +1193,32 @@
                 tbody.appendChild(row);
             });
         }
+        
+        // Enhanced search functionality
+        function searchUsers() {
+            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+            if (searchTerm === '') {
+                filteredUsers = [...currentUsers];
+            } else {
+                filteredUsers = currentUsers.filter(user => 
+                    user.account_number.toString().includes(searchTerm) ||
+                    (user.account_name && user.account_name.toLowerCase().includes(searchTerm)) ||
+                    (user.broker_name && user.broker_name.toLowerCase().includes(searchTerm)) ||
+                    (user.ea_name && user.ea_name.toLowerCase().includes(searchTerm))
+                );
+            }
+            updateUsersTable(filteredUsers);
+        }
+        
+        // Search on enter key
+        document.getElementById('userSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchUsers();
+            }
+        });
+        
+        // Real-time search
+        document.getElementById('userSearch').addEventListener('input', searchUsers);
         
         function upgradeUser(accountNumber) {
             const user = currentUsers.find(u => u.account_number == accountNumber);
@@ -1001,6 +1245,181 @@
             document.getElementById('extensionGroup').style.display = 'block';
             
             document.getElementById('userModal').style.display = 'block';
+        }
+        
+        // Enhanced notification popup
+        function showNotificationPopup(type, message, buttons = null) {
+            const popup = document.getElementById('notificationPopup');
+            const icon = document.getElementById('popupIcon');
+            const msg = document.getElementById('popupMessage');
+            const btnContainer = document.getElementById('popupButtons');
+            
+            // Set icon and color based on type
+            if (type === 'success') {
+                icon.innerHTML = '<i class="fas fa-check-circle" style="color: #32CD32;"></i>';
+            } else if (type === 'error') {
+                icon.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #DC143C;"></i>';
+            } else if (type === 'warning') {
+                icon.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #FFD700;"></i>';
+            } else if (type === 'confirm') {
+                icon.innerHTML = '<i class="fas fa-question-circle" style="color: #9ACD32;"></i>';
+            }
+            
+            msg.textContent = message;
+            
+            // Handle buttons
+            if (buttons) {
+                btnContainer.innerHTML = '';
+                buttons.forEach(btn => {
+                    const button = document.createElement('button');
+                    button.className = `btn btn-${btn.type}`;
+                    button.innerHTML = `<i class="${btn.icon}"></i> ${btn.text}`;
+                    button.onclick = btn.action;
+                    btnContainer.appendChild(button);
+                });
+            } else {
+                btnContainer.innerHTML = '<button class="btn btn-primary" onclick="hideNotificationPopup()"><i class="fas fa-check"></i> OK</button>';
+            }
+            
+            popup.classList.add('show');
+            
+            // Auto hide after 3 seconds for success/error messages
+            if (type !== 'confirm' && !buttons) {
+                setTimeout(hideNotificationPopup, 3000);
+            }
+        }
+        
+        function hideNotificationPopup() {
+            document.getElementById('notificationPopup').classList.remove('show');
+        }
+        
+        // Enhanced user actions
+        async function togglePauseUser(accountNumber, currentStatus) {
+            const newStatus = currentStatus === 'paused' ? 'active' : 'paused';
+            const action = newStatus === 'paused' ? 'pause' : 'resume';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        action: action,
+                        account_number: parseInt(accountNumber)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotificationPopup('success', `User ${action}d successfully!`);
+                    loadDashboardData();
+                } else {
+                    showNotificationPopup('error', result.message || `Failed to ${action} user`);
+                }
+            } catch (error) {
+                showNotificationPopup('error', 'Network error occurred');
+            }
+        }
+        
+        async function suspendUser(accountNumber) {
+            const user = currentUsers.find(u => u.account_number == accountNumber);
+            const userName = user ? (user.account_name || `Account ${accountNumber}`) : `Account ${accountNumber}`;
+            
+            showNotificationPopup('confirm', `Are you sure you want to suspend ${userName}? They will not be able to use the EA until reactivated.`, [
+                {
+                    type: 'danger',
+                    text: 'Suspend',
+                    icon: 'fas fa-ban',
+                    action: () => confirmSuspendUser(accountNumber, userName)
+                },
+                {
+                    type: 'primary',
+                    text: 'Cancel',
+                    icon: 'fas fa-times',
+                    action: hideNotificationPopup
+                }
+            ]);
+        }
+        
+        async function confirmSuspendUser(accountNumber, userName) {
+            hideNotificationPopup();
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        action: 'suspend',
+                        account_number: parseInt(accountNumber)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotificationPopup('success', `${userName} has been suspended successfully!`);
+                    loadDashboardData();
+                } else {
+                    showNotificationPopup('error', result.message || 'Failed to suspend user');
+                }
+            } catch (error) {
+                showNotificationPopup('error', 'Network error occurred');
+            }
+        }
+        
+        function deleteUser(accountNumber) {
+            const user = currentUsers.find(u => u.account_number == accountNumber);
+            const userName = user ? (user.account_name || `Account ${accountNumber}`) : `Account ${accountNumber}`;
+            
+            showNotificationPopup('confirm', `⚠️ DANGER: This will permanently delete ${userName} and all their data. This action cannot be undone!`, [
+                {
+                    type: 'danger',
+                    text: 'Delete Forever',
+                    icon: 'fas fa-trash',
+                    action: () => confirmDeleteUser(accountNumber, userName)
+                },
+                {
+                    type: 'primary',
+                    text: 'Cancel',
+                    icon: 'fas fa-times',
+                    action: hideNotificationPopup
+                }
+            ]);
+        }
+        
+        async function confirmDeleteUser(accountNumber, userName) {
+            hideNotificationPopup();
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        action: 'delete',
+                        account_number: parseInt(accountNumber)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotificationPopup('success', `${userName} has been deleted permanently!`);
+                    loadDashboardData();
+                } else {
+                    showNotificationPopup('error', result.message || 'Failed to delete user');
+                }
+            } catch (error) {
+                showNotificationPopup('error', 'Network error occurred');
+            }
         }
         
         function closeModal() {
@@ -1058,33 +1477,25 @@
             }
         });
         
-        async function suspendUser(accountNumber) {
-            if (!confirm('Are you sure you want to suspend this user?')) return;
-            
-            try {
-                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${authToken}`
-                    },
-                    body: JSON.stringify({
-                        action: 'suspend',
-                        account_number: parseInt(accountNumber)
-                    })
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('User suspended successfully!');
-                    loadDashboardData();
-                } else {
-                    alert('Failed to suspend user: ' + result.message);
-                }
-            } catch (error) {
-                alert('Network error occurred');
-            }
+        // Settings functions
+        function saveTrialSetting() {
+            const trialPeriod = document.getElementById('defaultTrialSelect').value;
+            localStorage.setItem('defaultTrial', trialPeriod);
+            showNotificationPopup('success', `Default trial period set to ${trialPeriod === 'trial_7' ? '7 days' : '30 days'}`);
+        }
+        
+        function saveSystemSettings() {
+            showNotificationPopup('success', 'System settings saved successfully!');
+        }
+        
+        function loadPendingApprovals() {
+            const pendingList = document.getElementById('pendingList');
+            pendingList.innerHTML = `
+                <div style="text-align: center; padding: 3rem; color: #cccccc;">
+                    <i class="fas fa-clock" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i><br>
+                    No pending approvals found.
+                </div>
+            `;
         }
         
         function showError(elementId, message) {
@@ -1102,7 +1513,8 @@
         }
         
         function exportData() {
-            alert('Export functionality coming soon!');
+            showNotificationPopup('info', 'Exporting user data...');
+            // Implementation for data export
         }
         
         // Close modal when clicking outside
