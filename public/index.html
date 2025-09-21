@@ -1092,3 +1092,109 @@
         }
         
         function updateStatistics(stats) {
+            document.getElementById('totalUsers').textContent = stats.total_users || 0;
+            document.getElementById('trialUsers').textContent = stats.trial_users || 0;
+            document.getElementById('paidUsers').textContent = stats.paid_users || 0;
+            document.getElementById('activeUsers').textContent = stats.active_users || 0;
+            document.getElementById('pausedUsers').textContent = stats.paused_users || 0;
+        }
+        
+        function updateUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            if (!users || users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <h3>No Users Found</h3>
+                                <p>Users will appear here when they activate the EA for the first time.<br>
+                                Make sure to test the EA with a valid account to see data here.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // User table rendering code would go here when there are actual users
+        }
+        
+        function loadPendingApprovals() {
+            const pendingList = document.getElementById('pendingList');
+            pendingList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h3>No Pending Approvals</h3>
+                    <p>First-time EA activations that need your approval will appear here.<br>
+                    When users activate the EA for the first time, they will need your manual approval.</p>
+                </div>
+            `;
+        }
+        
+        // Enhanced search functionality
+        function searchUsers() {
+            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+            if (searchTerm === '') {
+                filteredUsers = [...currentUsers];
+            } else {
+                filteredUsers = currentUsers.filter(user => 
+                    user.account_number.toString().includes(searchTerm) ||
+                    (user.account_name && user.account_name.toLowerCase().includes(searchTerm)) ||
+                    (user.broker_name && user.broker_name.toLowerCase().includes(searchTerm)) ||
+                    (user.ea_name && user.ea_name.toLowerCase().includes(searchTerm))
+                );
+            }
+            updateUsersTable(filteredUsers);
+        }
+        
+        // Search on enter key and real-time
+        document.getElementById('userSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchUsers();
+        });
+        document.getElementById('userSearch').addEventListener('input', searchUsers);
+        
+        function closeModal() {
+            document.getElementById('userModal').style.display = 'none';
+            document.getElementById('modalError').style.display = 'none';
+            document.getElementById('modalSuccess').style.display = 'none';
+            document.getElementById('modalSubscriptionType').disabled = false;
+        }
+        
+        function saveSystemSettings() {
+            alert('System settings saved successfully!');
+        }
+        
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            element.style.display = 'flex';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+        
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            element.style.display = 'flex';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('userModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            if (authToken && document.getElementById('dashboard').style.display !== 'none') {
+                loadDashboardData();
+            }
+        }, 300000);
+    </script>
+</body>
+</html>
