@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark8Pips - Advanced License Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Login Styles */
+        .login-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+        .login-box { 
+            background: white; 
+            padding: 3rem; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            width: 450px; 
+            text-align: center;
+        }
+        .login-title { 
+            margin-bottom: 2rem; 
+            color: #333; 
+            font-size: 2rem; 
+            font-weight: 700; 
+        }
+        .logo { font-size: 3rem; margin-bottom: 1rem; }
+        
+        /* Dashboard Styles */
+        .dashboard { display: none; background: #f8fafc; min-height: 100vh; }
+        .sidebar { 
+            position: fixed; 
+            left: 0; 
+            top: 0; 
+            width: 280px; 
+            height: 100vh; 
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); 
+            color: white; 
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .sidebar-header { 
+            padding: 2rem 1.5rem; 
+            border-bottom: 1px solid #404040; 
+        }
+        .sidebar-menu { list-style: none; padding: 1rem 0; }
+        .sidebar-menu li { margin: 0; }
+        .sidebar-menu a { 
+            display: flex; 
+            align-items: center; 
+            padding: 1rem 1.5rem; 
+            color: #ecf0f1; 
+            text-decoration: none; 
+            transition: all 0.3s;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active { 
+            background: rgba(52, 152, 219, 0.2); 
+            border-right: 4px solid #3498db; 
+        }
+        .sidebar-menu i { width: 20px; margin-right: 15px; }
+        
+        .main-content { 
+            margin-left: 280px; 
+            padding: 2rem; 
+        }
+        .top-header { 
+            background: white; 
+            padding: 1.5rem 2rem; 
+            border-radius: 15px; 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1); 
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-info { display: flex; align-items: center; gap: 1rem; }
+        .user-avatar { 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            background: linear-gradient(45deg, #3498db, #2ecc71); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        /* Page Content */
+        .page-content { display: none; }
+        .page-content.active { display: block; }
+        
+        /* Stats Grid */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1.5rem; 
+            margin-bottom: 2rem; 
+        }
+        .stat-card { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #3498db, #2ecc71);
+        }
+        .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .stat-icon { 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem;
+        }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #2c3e50; }
+        .stat-label { color: #7f8c8d; font-size: 1rem; margin-top: 0.5rem; }
+        
+        /* Cards */
+        .card { 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+            margin-bottom: 2rem;
+        }
+        .card-header { 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            color: white; 
+            padding: 1.5rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .card-body { padding: 2rem; }
+        
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        .users-table { width: 100%; border-collapse: collapse; }
+        .users-table th, .users-table td { 
+            padding: 1.2rem 1rem; 
+            text-align: left; 
+            border-bottom: 1px solid #e1e8ed; 
+        }
+        .users-table th { 
+            background: #f8fafc; 
+            font-weight: 600; 
+            color: #2c3e50; 
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .users-table tbody tr { transition: all 0.3s; }
+        .users-table tbody tr:hover { background: #f8fafc; transform: translateY(-1px); }
+        
+        /* Status Badges */
+        .status-badge { 
+            padding: 0.4rem 1rem; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-trial { background: #fff3cd; color: #856404; }
+        .status-active { background: #d4edda; color: #155724; }
+        .status-expired { background: #f8d7da; color: #721c24; }
+        .status-suspended { background: #d1ecf1; color: #0c5460; }
+        
+        /* Buttons */
+        .btn { 
+            padding: 0.6rem 1.5rem; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-success { background: #2ecc71; color: white; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-info { background: #17a2b8; color: white; }
+        .btn-sm { padding: 0.4rem 1rem; font-size: 0.8rem; }
+        
+        /* Forms */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            font-weight: 600; 
+            color: #2c3e50; 
+        }
+        .form-control { 
+            width: 100%; 
+            padding: 0.8rem 1rem; 
+            border: 2px solid #e1e8ed; 
+            border-radius: 8px; 
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus { 
+            outline: none; 
+            border-color: #3498db; 
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); 
+        }
+        
+        /* Modals */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.5); 
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 20px; 
+            width: 90%; 
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 2rem; 
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e1e8ed;
+        }
+        .modal-title { font-size: 1.5rem; font-weight: 700; color: #2c3e50; }
+        .close { 
+            background: none; 
+            border: none; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: #7f8c8d;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .close:hover { background: #f8fafc; color: #e74c3c; }
+        
+        /* Alerts */
+        .alert { 
+            padding: 1rem 1.5rem; 
+            border-radius: 10px; 
+            margin-bottom: 1rem; 
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .alert-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .main-content { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Dark theme toggle */
+        .theme-toggle { 
+            background: none; 
+            border: none; 
+            color: #ecf0f1; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover { background: rgba(255,255,255,0.1); }
+        
+        /* Progress bars */
+        .progress { 
+            background: #e9ecef; 
+            border-radius: 10px; 
+            height: 8px; 
+            overflow: hidden; 
+            margin-top: 0.5rem;
+        }
+        .progress-bar { 
+            height: 100%; 
+            background: linear-gradient(45deg, #3498db, #2ecc71); 
+            transition: width 0.6s ease;
+        }
+        
+        /* Tooltips */
+        .tooltip { position: relative; }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Loading spinner */
+        .spinner { 
+            border: 3px solid #f3f3f3; 
+            border-top: 3px solid #3498db; 
+            border-radius: 50%; 
+            width: 30px; 
+            height: 30px; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Search and filters */
+        .filters-bar { 
+            background: white; 
+            padding: 1.5rem; 
+            border-radius: 15px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-box { 
+            position: relative; 
+            flex: 1; 
+            min-width: 300px;
+        }
+        .search-box i { 
+            position: absolute; 
+            left: 1rem; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            color: #7f8c8d; 
+        }
+        .search-box input { 
+            padding-left: 3rem; 
+        }
+        
+        /* Quick actions */
+        .quick-actions { 
+            display: flex; 
+            gap: 1rem; 
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <div class="logo">🏆</div>
+            <h2 class="login-title">Mark8Pips Admin</h2>
+            <p style="color: #666; margin-bottom: 2rem;">Advanced License Management System</p>
+            <div id="loginError" class="alert alert-error" style="display: none;"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" id="loginEmail" required placeholder="example@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="loginPassword" required placeholder="Enter your secure password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-crown"></i> Mark8Pips</h3>
+                <p style="opacity: 0.8; font-size: 0.9rem;">License Manager Pro</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" onclick="showPage('overview')" class="active">
+                    <i class="fas fa-chart-bar"></i> Dashboard
+                </a></li>
+                <li><a href="#" onclick="showPage('users')">
+                    <i class="fas fa-users"></i> User Management
+                </a></li>
+                <li><a href="#" onclick="showPage('settings')">
+                    <i class="fas fa-cog"></i> System Settings
+                </a></li>
+                <li><a href="#" onclick="showPage('analytics')">
+                    <i class="fas fa-chart-pie"></i> Analytics
+                </a></li>
+                <li><a href="#" onclick="showPage('activity')">
+                    <i class="fas fa-history"></i> Activity Log
+                </a></li>
+                <li><a href="#" onclick="showPage('tools')">
+                    <i class="fas fa-tools"></i> Admin Tools
+                </a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div>
+                    <h1>Welcome back! 👋</h1>
+                    <p style="color: #666;">Manage your EA licenses and users</p>
+                </div>
+                <div class="user-info">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-avatar">MP</div>
+                    <div>
+                        <div style="font-weight: 600;" id="userEmail"></div>
+                        <div style="font-size: 0.8rem; color: #666;">Owner</div>
+                    </div>
+                    <button onclick="logout()" class="btn btn-danger btn-sm">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overview Page -->
+            <div id="overviewPage" class="page-content active">
+                <!-- Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #e3f2fd; color: #1976d2;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="tooltip">
+                                <i class="fas fa-info-circle" style="color: #ccc;"></i>
+                                <span class="tooltiptext">Total registered users across all plans</span>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="totalUsersProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #f3e5f5; color: #7b1fa2;">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="trialUsers">0</div>
+                        <div class="stat-label">Active Trials</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="trialProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #e8f5e8; color: #2e7d32;">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="paidUsers">0</div>
+                        <div class="stat-label">Paid Users</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="paidProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #fff3e0; color: #f57c00;">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="totalRevenue">$0</div>
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="revenueProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #ffebee; color: #c62828;">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="expiringSoon">0</div>
+                        <div class="stat-label">Expiring Soon</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="expiringProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: #e0f2f1; color: #00695c;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="activeToday">0</div>
+                        <div class="stat-label">Active Today</div>
+                        <div class="progress">
+                            <div class="progress-bar" id="activeTodayProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="btn btn-primary" onclick="openCreateUserModal()">
+                        <i class="fas fa-user-plus"></i> Add New User
+                    </button>
+                    <button class="btn btn-info" onclick="bulkOperation()">
+                        <i class="fas fa-tasks"></i> Bulk Operations
+                    </button>
+                    <button class="btn btn-warning" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button class="btn btn-success" onclick="sendAnnouncement()">
+                        <i class="fas fa-bullhorn"></i> Send Announcement
+                    </button>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"></i> Recent Activity</h3>
+                        <button class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white;" onclick="refreshActivity()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="recentActivity">
+                            <div class="spinner" style="margin: 2rem auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Management Page -->
+            <div id="usersPage" class="page-content">
+                <!-- Filters Bar -->
+                <div class="filters-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-control" id="userSearch" placeholder="Search by account number, email, or broker...">
+                    </div>
+                    <select class="form-control" id="statusFilter" style="width: auto;">
+                        <option value="">All Status</option>
+                        <option value="trial">Trial</option>
+                        <option value="active">Active</option>
+                        <option value="expired">Expired</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                    <select class="form-control" id="planFilter" style="width: auto;">
+                        <option value="">All Plans</option>
+                        <option value="trial_7">7-Day Trial</option>
+                        <option value="trial_30">30-Day Trial</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                        <option value="lifetime">Lifetime</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                </div>
+
+                <!-- Users Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-users"></i> User Management</h3>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-sm" style="background: rgba(255,255,255,0.2); color: white;" onclick="loadDashboardData()">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="openCreateUserModal()">
+                                <i class="fas fa-plus"></i> Add User
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="selectAll"> Account #</th>
+                                        <th>Broker</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                        <th>Plan</th>
+                                        <th>Expires</th>
+                                        <th>Activity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settingsPage" class="page-content">
+                <div class="form-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-cog"></i> Trial Settings</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Default Trial Period</label>
+                                <select class="form-control" id="defaultTrial">
+                                    <option value="trial_7">7-Day Trial</option>
+                                    <option value="trial_30" selected>30-Day Trial</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grace Period (Days)</label>
+                                <input type="number" class="form-control" id="gracePeriod" value="3" min="0" max="30">
+                            </div>
+                            <button class="btn btn-primary" onclick="saveTrialSettings()">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-dollar-sign"></i> Pricing Settings</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Monthly Price ($)</label>
+                                <input type="number" class="form-control" id="monthlyPrice" value="29">
+                            </div>
+                            <div class="form-group">
+                                <label>Yearly Price ($)</label>
+                                <input type="number" class="form-control" id="yearlyPrice" value="290">
+                            </div>
+                            <div class="form-group">
+                                <label>Lifetime Price ($)</label>
+                                <input type="number" class="form-control" id="lifetimePrice" value="999">
+                            </div>
+                            <button class="btn btn-primary" onclick="savePricingSettings()">
+                                <i class="fas fa-save"></i> Save Pricing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other pages will be added here -->
+            <div id="analyticsPage" class="page-content">
+                <h2>Analytics Dashboard Coming Soon...</h2>
+            </div>
+
+            <div id="activityPage" class="page-content">
+                <h2>Activity Log Coming Soon...</h2>
+            </div>
+
+            <div id="toolsPage" class="page-content">
+                <h2>Admin Tools Coming Soon...</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">User Management</h3>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalError" class="alert alert-error" style="display: none;"></div>
+            <div id="modalSuccess" class="alert alert-success" style="display: none;"></div>
+            
+            <form id="userForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Account Number</label>
+                        <input type="number" class="form-control" id="modalAccountNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Broker Name</label>
+                        <input type="text" class="form-control" id="modalBrokerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Subscription Plan</label>
+                        <select class="form-control" id="modalSubscriptionType" required>
+                            <option value="trial_7">7-Day Trial (Free)</option>
+                            <option value="trial_30">30-Day Trial (Free)</option>
+                            <option value="monthly">Monthly Plan ($29)</option>
+                            <option value="yearly">Yearly Plan ($290)</option>
+                            <option value="lifetime">Lifetime Plan ($999)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Account Balance ($)</label>
+                        <input type="number" class="form-control" id="modalAccountBalance" step="0.01">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="extensionGroup" style="display: none;">
+                    <label>Extension Period</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="number" class="form-control" id="modalExtensionDays" placeholder="Days" min="1">
+                        <span style="align-self: center;">OR</span>
+                        <input type="number" class="form-control" id="modalExtensionMonths" placeholder="Months" min="1">
+                    </div>
+                    <small style="color: #666;">Leave both empty to use plan default duration</small>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-success" style="flex: 1;">
+                        <i class="fas fa-save"></i> <span id="submitButtonText">Save Changes</span>
+                    </button>
+                    <button type="button" onclick="closeModal()" class="btn" style="background: #6c757d; color: white;">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        let authToken = localStorage.getItem('authToken');
+        let currentUsers = [];
+        let filteredUsers = [];
+        
+        // Check authentication on page load
+        if (authToken) {
+            showDashboard();
+        }
+        
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    authToken = result.token;
+                    localStorage.setItem('authToken', authToken);
+                    document.getElementById('userEmail').textContent = result.user.email;
+                    showDashboard();
+                    loadDashboardData();
+                } else {
+                    showError('loginError', result.message || 'Invalid credentials');
+                }
+            } catch (error) {
+                showError('loginError', 'Connection error - Please try again');
+            }
+        });
+        
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadDashboardData();
+        }
+        
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('authToken');
+                authToken = null;
+                location.reload();
+            }
+        }
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all menu items
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId + 'Page').classList.add('active');
+            
+            // Add active class to clicked menu item
+            event.target.classList.add('active');
+            
+            // Load specific page data
+            if (pageId === 'users') {
+                loadUsersData();
+            }
+        }
+        
+        async function loadDashboardData() {
+            try {
+                showLoading();
+                
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentUsers = result.users || [];
+                    filteredUsers = [...currentUsers];
+                    updateStatistics(result.stats);
+                    updateUsersTable(filteredUsers);
+                    updateRecentActivity(result.recent_activity);
+                } else {
+                    showError('dashboardError', 'Failed to load dashboard data');
+                }
+            } catch (error) {
+                showError('dashboardError', 'Network error - Please refresh the page');
+            } finally {
+                hideLoading();
+            }
+        }
+        
+        function updateStatistics(stats) {
+            // Update stat numbers with animation
+            animateNumber('totalUsers', stats.total_users);
+            animateNumber('trialUsers', stats.trial_7_users + stats.trial_30_users);
+            animateNumber('paidUsers', stats.monthly_users + stats.yearly_users + stats.lifetime_users);
+            animateNumber('totalRevenue', stats.total_revenue.total, '$');
+            animateNumber('expiringSoon', stats.expiring_soon);
+            animateNumber('activeToday', stats.active_users);
+            
+            // Update progress bars
+            const maxUsers = Math.max(stats.total_users, 100);
+            updateProgressBar('totalUsersProgress', (stats.total_users / maxUsers) * 100);
+            updateProgressBar('trialProgress', ((stats.trial_7_users + stats.trial_30_users) / maxUsers) * 100);
+            updateProgressBar('paidProgress', ((stats.monthly_users + stats.yearly_users + stats.lifetime_users) / maxUsers) * 100);
+            updateProgressBar('revenueProgress', Math.min((stats.total_revenue.total / 10000) * 100, 100));
+            updateProgressBar('expiringProgress', (stats.expiring_soon / maxUsers) * 100);
+            updateProgressBar('activeTodayProgress', (stats.active_users / maxUsers) * 100);
+        }
+        
+        function animateNumber(elementId, finalValue, prefix = '') {
+            const element = document.getElementById(elementId);
+            const startValue = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
+            const duration = 1000;
+            const step = (finalValue - startValue) / (duration / 16);
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue += step;
+                if ((step > 0 && currentValue >= finalValue) || (step < 0 && currentValue <= finalValue)) {
+                    currentValue = finalValue;
+                    clearInterval(timer);
+                }
+                element.textContent = prefix + Math.floor(currentValue).toLocaleString();
+            }, 16);
+        }
+        
+        function updateProgressBar(elementId, percentage) {
+            const element = document.getElementById(elementId);
+            element.style.width = Math.min(percentage, 100) + '%';
+        }
+        
+        function updateUsersTable(users) {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            if (!users || users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 3rem; color: #666;">
+                            <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i><br>
+                            No users found. Users will appear here when they activate the EA.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                const expiryDate = new Date(user.expires_at);
+                const now = new Date();
+                const daysRemaining = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
+                const lastSeen = user.last_seen ? new Date(user.last_seen).toLocaleDateString() : 'Never';
+                
+                // Determine status color and icon
+                let statusClass = 'status-' + user.status;
+                let statusIcon = 'fas fa-circle';
+                
+                if (daysRemaining <= 0) {
+                    statusClass = 'status-expired';
+                    statusIcon = 'fas fa-exclamation-circle';
+                } else if (daysRemaining <= 7) {
+                    statusIcon = 'fas fa-exclamation-triangle';
+                }
+                
+                row.innerHTML = `
+                    <td>
+                        <input type="checkbox" class="user-checkbox" value="${user.account_number}">
+                        <strong>${user.account_number}</strong>
+                    </td>
+                    <td>
+                        <div style="font-size: 0.9rem;">${user.broker_name}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${user.ea_version || 'Unknown version'}</div>
+                    </td>
+                    <td>$${user.account_balance ? parseFloat(user.account_balance).toLocaleString() : 'N/A'}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            <i class="${statusIcon}"></i> ${user.status.toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600;">${user.subscription_type.replace('_', '-').toUpperCase()}</div>
+                        <div style="font-size: 0.8rem; color: #666;">${user.validation_count || 0} validations</div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600; color: ${daysRemaining <= 7 ? '#e74c3c' : '#27ae60'}">
+                            ${expiryDate.toLocaleDateString()}
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666;">
+                            ${daysRemaining > 0 ? daysRemaining + ' days left' : 'Expired ' + Math.abs(daysRemaining) + ' days ago'}
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-size: 0.9rem;">Last: ${lastSeen}</div>
+                        <div style="font-size: 0.8rem; color: #666;">Joined: ${new Date(user.first_seen).toLocaleDateString()}</div>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+                            <button class="btn btn-success btn-sm tooltip" onclick="upgradeUser(${user.account_number})" title="Upgrade subscription">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                            <button class="btn btn-info btn-sm tooltip" onclick="extendUser(${user.account_number})" title="Extend license">
+                                <i class="fas fa-clock"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm tooltip" onclick="editUser(${user.account_number})" title="Edit user details">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm tooltip" onclick="suspendUser(${user.account_number})" title="Suspend user">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function updateRecentActivity(recentUsers) {
+            const container = document.getElementById('recentActivity');
+            
+            if (!recentUsers || recentUsers.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <i class="fas fa-clock" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i><br>
+                        No recent activity found.
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            recentUsers.slice(0, 5).forEach(user => {
+                const timeAgo = getTimeAgo(new Date(user.last_seen || user.first_seen));
+                html += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e1e8ed;">
+                        <div>
+                            <strong>Account ${user.account_number}</strong> - ${user.broker_name}
+                            <div style="font-size: 0.8rem; color: #666;">
+                                ${user.subscription_type.replace('_', '-').toUpperCase()} plan
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 0.9rem; color: #666;">${timeAgo}</div>
+                            <span class="status-badge status-${user.status}" style="font-size: 0.7rem;">
+                                ${user.status}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} min ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+            return `${Math.floor(diffInSeconds / 86400)} days ago`;
+        }
+        
+        function upgradeUser(accountNumber) {
+            const user = currentUsers.find(u => u.account_number == accountNumber);
+            if (!user) return;
+            
+            document.getElementById('modalTitle').textContent = 'Upgrade User Subscription';
+            document.getElementById('modalAccountNumber').value = accountNumber;
+            document.getElementById('modalAccountNumber').readOnly = true;
+            document.getElementById('modalBrokerName').value = user.broker_name;
+            document.getElementById('modalBrokerName').readOnly = true;
+            document.getElementById('modalAccountBalance').value = user.account_balance || '';
+            document.getElementById('modalSubscriptionType').value = user.subscription_type;
+            document.getElementById('submitButtonText').textContent = 'Upgrade User';
+            document.getElementById('extensionGroup').style.display = 'none';
+            
+            document.getElementById('userModal').style.display = 'block';
+        }
+        
+        function extendUser(accountNumber) {
+            const user = currentUsers.find(u => u.account_number == accountNumber);
+            if (!user) return;
+            
+            document.getElementById('modalTitle').textContent = 'Extend User License';
+            document.getElementById('modalAccountNumber').value = accountNumber;
+            document.getElementById('modalAccountNumber').readOnly = true;
+            document.getElementById('modalBrokerName').value = user.broker_name;
+            document.getElementById('modalBrokerName').readOnly = true;
+            document.getElementById('modalAccountBalance').value = user.account_balance || '';
+            document.getElementById('modalSubscriptionType').value = user.subscription_type;
+            document.getElementById('modalSubscriptionType').disabled = true;
+            document.getElementById('submitButtonText').textContent = 'Extend License';
+            document.getElementById('extensionGroup').style.display = 'block';
+            
+            document.getElementById('userModal').style.display = 'block';
+        }
+        
+        function editUser(accountNumber) {
+            const user = currentUsers.find(u => u.account_number == accountNumber);
+            if (!user) return;
+            
+            document.getElementById('modalTitle').textContent = 'Edit User Details';
+            document.getElementById('modalAccountNumber').value = accountNumber;
+            document.getElementById('modalAccountNumber').readOnly = true;
+            document.getElementById('modalBrokerName').value = user.broker_name;
+            document.getElementById('modalBrokerName').readOnly = false;
+            document.getElementById('modalAccountBalance').value = user.account_balance || '';
+            document.getElementById('modalSubscriptionType').value = user.subscription_type;
+            document.getElementById('modalSubscriptionType').disabled = false;
+            document.getElementById('submitButtonText').textContent = 'Save Changes';
+            document.getElementById('extensionGroup').style.display = 'none';
+            
+            document.getElementById('userModal').style.display = 'block';
+        }
+        
+        function openCreateUserModal() {
+            document.getElementById('modalTitle').textContent = 'Create New User';
+            document.getElementById('userForm').reset();
+            document.getElementById('modalAccountNumber').readOnly = false;
+            document.getElementById('modalBrokerName').readOnly = false;
+            document.getElementById('modalSubscriptionType').disabled = false;
+            document.getElementById('submitButtonText').textContent = 'Create User';
+            document.getElementById('extensionGroup').style.display = 'none';
+            
+            document.getElementById('userModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('userModal').style.display = 'none';
+            document.getElementById('modalError').style.display = 'none';
+            document.getElementById('modalSuccess').style.display = 'none';
+        }
+        
+        // Handle form submission
+        document.getElementById('userForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const accountNumber = document.getElementById('modalAccountNumber').value;
+            const brokerName = document.getElementById('modalBrokerName').value;
+            const subscriptionType = document.getElementById('modalSubscriptionType').value;
+            const accountBalance = document.getElementById('modalAccountBalance').value;
+            const extensionDays = document.getElementById('modalExtensionDays').value;
+            const extensionMonths = document.getElementById('modalExtensionMonths').value;
+            
+            const isExtension = document.getElementById('extensionGroup').style.display !== 'none';
+            const isCreating = document.getElementById('modalTitle').textContent.includes('Create');
+            
+            try {
+                let endpoint = `${API_BASE}/api/admin/dashboard`;
+                let action = 'upgrade';
+                
+                if (isExtension) {
+                    action = 'extend';
+                }
+                
+                const body = {
+                    action: action,
+                    account_number: parseInt(accountNumber),
+                    subscription_type: subscriptionType,
+                    account_balance: parseFloat(accountBalance) || 0
+                };
+                
+                if (isExtension) {
+                    if (extensionDays) body.days = parseInt(extensionDays);
+                    if (extensionMonths) body.months = parseInt(extensionMonths);
+                }
+                
+                if (isCreating) {
+                    // For creating new users, we need a different endpoint
+                    endpoint = `${API_BASE}/api/admin/create-user`;
+                    body.broker_name = brokerName;
+                }
+                
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('modalSuccess', result.message || 'Operation completed successfully!');
+                    setTimeout(() => {
+                        closeModal();
+                        loadDashboardData();
+                    }, 1500);
+                } else {
+                    showError('modalError', result.message || 'Operation failed');
+                }
+            } catch (error) {
+                showError('modalError', 'Network error occurred');
+            }
+        });
+        
+        async function suspendUser(accountNumber) {
+            if (!confirm('Are you sure you want to suspend this user? They will not be able to use the EA until reactivated.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        action: 'suspend',
+                        account_number: parseInt(accountNumber)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showNotification('User suspended successfully!', 'success');
+                    loadDashboardData();
+                } else {
+                    showNotification(result.message || 'Failed to suspend user', 'error');
+                }
+            } catch (error) {
+                showNotification('Network error occurred', 'error');
+            }
+        }
+        
+        function applyFilters() {
+            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const planFilter = document.getElementById('planFilter').value;
+            
+            filteredUsers = currentUsers.filter(user => {
+                const matchesSearch = !searchTerm || 
+                    user.account_number.toString().includes(searchTerm) ||
+                    user.broker_name.toLowerCase().includes(searchTerm);
+                
+                const matchesStatus = !statusFilter || user.status === statusFilter;
+                const matchesPlan = !planFilter || user.subscription_type === planFilter;
+                
+                return matchesSearch && matchesStatus && matchesPlan;
+            });
+            
+            updateUsersTable(filteredUsers);
+        }
+        
+        // Search functionality
+        document.getElementById('userSearch').addEventListener('input', applyFilters);
+        document.getElementById('statusFilter').addEventListener('change', applyFilters);
+        document.getElementById('planFilter').addEventListener('change', applyFilters);
+        
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            element.style.display = 'flex';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+        
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            element.style.display = 'flex';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '9999';
+            notification.style.minWidth = '300px';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+        
+        function showLoading() {
+            // Implementation for loading state
+        }
+        
+        function hideLoading() {
+            // Implementation for hiding loading state
+        }
+        
+        function loadUsersData() {
+            updateUsersTable(filteredUsers);
+        }
+        
+        function refreshActivity() {
+            loadDashboardData();
+        }
+        
+        function toggleTheme() {
+            // Implementation for dark/light theme toggle
+            showNotification('Theme toggle coming soon!', 'info');
+        }
+        
+        // Placeholder functions for future features
+        function bulkOperation() {
+            showNotification('Bulk operations panel coming soon!', 'info');
+        }
+        
+        function exportData() {
+            showNotification('Data export feature coming soon!', 'info');
+        }
+        
+        function sendAnnouncement() {
+            showNotification('Announcement system coming soon!', 'info');
+        }
+        
+        function saveTrialSettings() {
+            showNotification('Trial settings saved!', 'success');
+        }
+        
+        function savePricingSettings() {
+            showNotification('Pricing settings saved!', 'success');
+        }
+        
+        // Auto-refresh dashboard every 5 minutes
+        setInterval(() => {
+            if (authToken && document.getElementById('dashboard').style.display !== 'none') {
+                loadDashboardData();
+            }
+        }, 300000);
+        
+        // Handle select all checkbox
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.user-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('userModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
