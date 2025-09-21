@@ -1047,50 +1047,44 @@
             }
         }
         
-        // Enhanced load dashboard data with refresh animation
-        async function loadDashboardData() {
-            const refreshButtons = document.querySelectorAll('.btn-refresh');
-            refreshButtons.forEach(btn => btn.classList.add('loading'));
-            
-            try {
-                const response = await fetch(`${API_BASE}/api/auto-register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        account_number: 123456,
-                        broker_name: "Test Broker",
-                        account_balance: 1000,
-                        ea_version: "1.0",
-                        action: "get_users"
-                    })
-                });
-                
-                // Simulate data for now since no real users yet
-                const mockUsers = [];
-                const mockStats = {
-                    total_users: 0,
-                    trial_users: 0,
-                    paid_users: 0,
-                    active_users: 0,
-                    paused_users: 0
-                };
-                
-                currentUsers = mockUsers;
-                filteredUsers = [...currentUsers];
-                updateStatistics(mockStats);
-                updateUsersTable(filteredUsers);
-                
-            } catch (error) {
-                console.error('Network error:', error);
-            } finally {
-                refreshButtons.forEach(btn => {
-                    setTimeout(() => {
-                        btn.classList.remove('loading');
-                    }, 600);
-                });
+        // Enhanced load dashboard data with proper API call
+async function loadDashboardData() {
+    const refreshButtons = document.querySelectorAll('.btn-refresh');
+    refreshButtons.forEach(btn => btn.classList.add('loading'));
+    
+    try {
+        const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
             }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            currentUsers = result.users || [];
+            filteredUsers = [...currentUsers];
+            updateStatistics(result.stats);
+            updateUsersTable(filteredUsers);
+            
+            console.log('📊 Loaded users:', currentUsers.length);
+        } else {
+            console.error('Failed to load dashboard data:', result.message);
         }
         
+    } catch (error) {
+        console.error('Network error:', error);
+    } finally {
+        refreshButtons.forEach(btn => {
+            setTimeout(() => {
+                btn.classList.remove('loading');
+            }, 600);
+        });
+    }
+}
+
         function updateStatistics(stats) {
             document.getElementById('totalUsers').textContent = stats.total_users || 0;
             document.getElementById('trialUsers').textContent = stats.trial_users || 0;
