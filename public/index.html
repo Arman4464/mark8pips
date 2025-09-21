@@ -49,7 +49,7 @@
         /* Dashboard Styles */
         .dashboard { display: none; background: #000000; min-height: 100vh; }
         
-        /* Sidebar with Toggle */
+        /* Sidebar with EMBEDDED Toggle */
         .sidebar { 
             position: fixed; 
             left: 0; 
@@ -65,7 +65,7 @@
         }
         
         .sidebar.collapsed {
-            transform: translateX(-280px);
+            transform: translateX(-240px);
         }
         
         .sidebar-header { 
@@ -74,12 +74,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         
         .sidebar-brand {
             display: flex;
             align-items: center;
             gap: 1rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sidebar.collapsed .sidebar-brand {
+            opacity: 0;
         }
         
         .sidebar-logo {
@@ -87,20 +93,32 @@
             height: 50px;
         }
         
+        /* EMBEDDED Toggle Button */
         .sidebar-toggle {
-            background: none;
-            border: none;
-            color: #9ACD32;
-            font-size: 1.2rem;
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #9ACD32, #32CD32);
+            border: 2px solid #000000;
+            color: #000000;
+            font-size: 1rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
         }
         
         .sidebar-toggle:hover {
-            background: rgba(154, 205, 50, 0.2);
-            transform: scale(1.1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.5);
+        }
+        
+        .sidebar.collapsed .sidebar-toggle {
+            right: -25px;
         }
         
         .sidebar-menu { list-style: none; padding: 1rem 0; }
@@ -112,6 +130,7 @@
             color: #ffffff; 
             text-decoration: none; 
             transition: all 0.3s;
+            white-space: nowrap;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active { 
             background: rgba(154, 205, 50, 0.2); 
@@ -119,6 +138,12 @@
             color: #9ACD32;
         }
         .sidebar-menu i { width: 20px; margin-right: 15px; }
+        
+        .sidebar.collapsed .sidebar-menu a span {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
         
         .main-content { 
             margin-left: 280px; 
@@ -129,7 +154,7 @@
         }
         
         .main-content.expanded {
-            margin-left: 0;
+            margin-left: 40px;
         }
         
         .top-header { 
@@ -173,10 +198,10 @@
         .page-content { display: none; }
         .page-content.active { display: block; }
         
-        /* Stats Grid - Fixed with Trial and Paid users */
+        /* Stats Grid - ADDED Paused Users */
         .stats-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
             gap: 1.5rem; 
             margin-bottom: 2rem; 
         }
@@ -189,6 +214,7 @@
             overflow: hidden;
             border: 2px solid #9ACD32;
             color: #ffffff;
+            text-align: center;
         }
         .stat-card::before {
             content: '';
@@ -199,7 +225,7 @@
             height: 100%;
             background: #9ACD32;
         }
-        .stat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .stat-header { display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
         .stat-icon { 
             width: 50px; 
             height: 50px; 
@@ -210,8 +236,8 @@
             font-size: 1.5rem;
             color: #9ACD32;
         }
-        .stat-number { font-size: 2.5rem; font-weight: bold; color: #9ACD32; }
-        .stat-label { color: #cccccc; font-size: 1rem; margin-top: 0.5rem; }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #9ACD32; margin-bottom: 0.5rem; }
+        .stat-label { color: #cccccc; font-size: 1rem; }
         
         /* Cards */
         .card { 
@@ -262,7 +288,7 @@
             transform: translateY(-2px); 
         }
         
-        /* Search and Control Bar - REMOVED duplicate trial control */
+        /* Search and Control Bar */
         .control-bar {
             background: linear-gradient(135deg, #1a1a1a, #000000);
             padding: 1.5rem;
@@ -550,32 +576,9 @@
             .main-content { margin-left: 0; }
             .main-content.expanded { margin-left: 0; }
             .mobile-toggle { display: block; }
-            .stats-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
             .control-bar { flex-direction: column; align-items: stretch; }
             .search-container { min-width: auto; }
-        }
-        
-        /* Desktop Toggle Button - TOP LEFT */
-        .desktop-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: linear-gradient(135deg, #9ACD32, #32CD32);
-            border: none;
-            color: #000000;
-            font-size: 1.2rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
-        }
-        
-        .desktop-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.5);
         }
         
         /* Empty state styling */
@@ -605,30 +608,21 @@
     </style>
 </head>
 <body>
-    <!-- Desktop Toggle Button - TOP LEFT -->
-    <button class="desktop-toggle" id="desktopToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-box">
             <div class="logo-container">
                 <svg class="mark8pips-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Mark8Pips Logo SVG based on the image -->
                     <defs>
                         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style="stop-color:#9ACD32;stop-opacity:1" />
                             <stop offset="100%" style="stop-color:#32CD32;stop-opacity:1" />
                         </linearGradient>
                     </defs>
-                    <!-- Shield outline -->
                     <path d="M20 60 L100 20 L180 60 L180 120 Q180 160 100 180 Q20 160 20 120 Z" 
                           fill="none" stroke="#9ACD32" stroke-width="4"/>
-                    <!-- M shape -->
                     <path d="M40 160 L40 80 L70 120 L100 80 L130 120 L160 80 L160 160" 
                           fill="none" stroke="#9ACD32" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <!-- Candlesticks -->
                     <rect x="50" y="100" width="3" height="40" fill="#9ACD32"/>
                     <rect x="48" y="105" width="7" height="15" fill="#9ACD32"/>
                     <rect x="65" y="90" width="3" height="50" fill="#9ACD32"/>
@@ -664,12 +658,11 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-        <!-- Toggleable Sidebar -->
+        <!-- Sidebar with EMBEDDED Toggle -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-brand">
                     <svg class="sidebar-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Smaller version of logo for sidebar -->
                         <path d="M20 60 L100 20 L180 60 L180 120 Q180 160 100 180 Q20 160 20 120 Z" 
                               fill="none" stroke="#9ACD32" stroke-width="6"/>
                         <path d="M40 160 L40 80 L70 120 L100 80 L130 120 L160 80 L160 160" 
@@ -685,22 +678,23 @@
                         <p style="opacity: 0.8; font-size: 0.8rem; margin: 0;">License Manager Pro</p>
                     </div>
                 </div>
+                <!-- EMBEDDED Toggle Button -->
                 <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-times"></i>
+                    <i class="fas fa-chevron-left"></i>
                 </button>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="#" onclick="showPage('overview')" class="active">
-                    <i class="fas fa-chart-bar"></i> Dashboard
+                    <i class="fas fa-chart-bar"></i> <span>Dashboard</span>
                 </a></li>
                 <li><a href="#" onclick="showPage('users')">
-                    <i class="fas fa-users"></i> User Management
+                    <i class="fas fa-users"></i> <span>User Management</span>
                 </a></li>
                 <li><a href="#" onclick="showPage('pending')">
-                    <i class="fas fa-clock"></i> Pending Approvals
+                    <i class="fas fa-clock"></i> <span>Pending Approvals</span>
                 </a></li>
                 <li><a href="#" onclick="showPage('settings')">
-                    <i class="fas fa-cog"></i> System Settings
+                    <i class="fas fa-cog"></i> <span>System Settings</span>
                 </a></li>
             </ul>
         </div>
@@ -732,7 +726,7 @@
 
             <!-- Overview Page -->
             <div id="overviewPage" class="page-content active">
-                <!-- Statistics Grid - RESTORED with Trial and Paid users -->
+                <!-- Statistics Grid - WITH Paused Users -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -773,9 +767,19 @@
                         <div class="stat-number" id="activeUsers">0</div>
                         <div class="stat-label">Active Users</div>
                     </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i class="fas fa-pause-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-number" id="pausedUsers">0</div>
+                        <div class="stat-label">Paused Users</div>
+                    </div>
                 </div>
 
-                <!-- Quick Actions - REMOVED Export Data button -->
+                <!-- Quick Actions -->
                 <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
                     <button class="btn btn-primary btn-refresh" onclick="loadDashboardData()" id="refreshBtn">
                         <i class="fas fa-refresh"></i> Refresh Data
@@ -788,7 +792,6 @@
 
             <!-- Users Management Page -->
             <div id="usersPage" class="page-content">
-                <!-- Control Bar - REMOVED duplicate trial setting -->
                 <div class="control-bar">
                     <div class="search-container">
                         <input type="text" class="search-box" id="userSearch" placeholder="Search by account number, name, broker..." />
@@ -799,7 +802,6 @@
                     </button>
                 </div>
 
-                <!-- Users Table -->
                 <div class="card">
                     <div class="card-header">
                         <h3><i class="fas fa-users"></i> User Management</h3>
@@ -944,27 +946,19 @@
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const sidebarToggle = document.getElementById('sidebarToggle');
-            const desktopToggle = document.getElementById('desktopToggle');
             const mobileToggle = document.getElementById('mobileToggle');
             
-            // Desktop toggle (top LEFT button)
-            desktopToggle.addEventListener('click', () => {
+            // Embedded sidebar toggle
+            sidebarToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
                 
-                const icon = desktopToggle.querySelector('i');
+                const icon = sidebarToggle.querySelector('i');
                 if (sidebar.classList.contains('collapsed')) {
-                    icon.className = 'fas fa-bars';
+                    icon.className = 'fas fa-chevron-right';
                 } else {
-                    icon.className = 'fas fa-times';
+                    icon.className = 'fas fa-chevron-left';
                 }
-            });
-            
-            // Sidebar close button
-            sidebarToggle.addEventListener('click', () => {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('expanded');
-                desktopToggle.querySelector('i').className = 'fas fa-bars';
             });
             
             // Mobile toggle
@@ -1043,7 +1037,7 @@
             document.getElementById(pageId + 'Page').classList.add('active');
             
             // Add active class to clicked menu item
-            event.target.classList.add('active');
+            event.target.closest('a').classList.add('active');
             
             // Load specific page data
             if (pageId === 'users') {
@@ -1077,7 +1071,8 @@
                     total_users: 0,
                     trial_users: 0,
                     paid_users: 0,
-                    active_users: 0
+                    active_users: 0,
+                    paused_users: 0
                 };
                 
                 currentUsers = mockUsers;
@@ -1097,116 +1092,3 @@
         }
         
         function updateStatistics(stats) {
-            document.getElementById('totalUsers').textContent = stats.total_users || 0;
-            document.getElementById('trialUsers').textContent = stats.trial_users || 0;
-            document.getElementById('paidUsers').textContent = stats.paid_users || 0;
-            document.getElementById('activeUsers').textContent = stats.active_users || 0;
-        }
-        
-        function updateUsersTable(users) {
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = '';
-            
-            if (!users || users.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8">
-                            <div class="empty-state">
-                                <i class="fas fa-users"></i>
-                                <h3>No Users Found</h3>
-                                <p>Users will appear here when they activate the EA for the first time.<br>
-                                Make sure to test the EA with a valid account to see data here.</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            // User table rendering code would go here when there are actual users
-        }
-        
-        function loadPendingApprovals() {
-            const pendingList = document.getElementById('pendingList');
-            pendingList.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-hourglass-half"></i>
-                    <h3>No Pending Approvals</h3>
-                    <p>First-time EA activations that need your approval will appear here.<br>
-                    When users activate the EA for the first time, they will need your manual approval.</p>
-                </div>
-            `;
-        }
-        
-        // Enhanced search functionality
-        function searchUsers() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            if (searchTerm === '') {
-                filteredUsers = [...currentUsers];
-            } else {
-                filteredUsers = currentUsers.filter(user => 
-                    user.account_number.toString().includes(searchTerm) ||
-                    (user.account_name && user.account_name.toLowerCase().includes(searchTerm)) ||
-                    (user.broker_name && user.broker_name.toLowerCase().includes(searchTerm)) ||
-                    (user.ea_name && user.ea_name.toLowerCase().includes(searchTerm))
-                );
-            }
-            updateUsersTable(filteredUsers);
-        }
-        
-        // Search on enter key and real-time
-        document.getElementById('userSearch').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchUsers();
-        });
-        document.getElementById('userSearch').addEventListener('input', searchUsers);
-        
-        function upgradeUser(accountNumber) {
-            // Modal functionality would be here
-        }
-        
-        function extendUser(accountNumber) {
-            // Modal functionality would be here
-        }
-        
-        function closeModal() {
-            document.getElementById('userModal').style.display = 'none';
-            document.getElementById('modalError').style.display = 'none';
-            document.getElementById('modalSuccess').style.display = 'none';
-            document.getElementById('modalSubscriptionType').disabled = false;
-        }
-        
-        function saveSystemSettings() {
-            alert('System settings saved successfully!');
-        }
-        
-        function showError(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-            element.style.display = 'flex';
-            setTimeout(() => element.style.display = 'none', 5000);
-        }
-        
-        function showSuccess(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            element.style.display = 'flex';
-            setTimeout(() => element.style.display = 'none', 5000);
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('userModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-        
-        // Auto-refresh every 5 minutes
-        setInterval(() => {
-            if (authToken && document.getElementById('dashboard').style.display !== 'none') {
-                loadDashboardData();
-            }
-        }, 300000);
-    </script>
-</body>
-</html>
