@@ -25,7 +25,6 @@ export default async function handler(req, res) {
       if (error) throw error;
 
       // Calculate statistics
-      const now = new Date();
       const stats = {
         total_users: users.length,
         trial_users: users.filter(u => u.subscription_type.includes('trial')).length,
@@ -34,6 +33,8 @@ export default async function handler(req, res) {
         paused_users: users.filter(u => u.status === 'paused').length,
         pending_approvals: users.filter(u => u.status === 'pending').length
       };
+
+      console.log(`📊 Dashboard: ${users.length} users, ${stats.pending_approvals} pending`);
 
       res.json({
         success: true,
@@ -53,64 +54,25 @@ export default async function handler(req, res) {
 
   else if (req.method === 'POST') {
     try {
-      const { action, account_number, subscription_type, days, months } = req.body;
+      const { action, account_number } = req.body;
 
-      if (action === 'upgrade') {
-        let expiresAt = new Date();
-        
-        // Calculate expiration based on subscription type
-        if (subscription_type === 'trial_7') {
-          expiresAt.setDate(expiresAt.getDate() + 7);
-        } else if (subscription_type === 'trial_30') {
-          expiresAt.setDate(expiresAt.getDate() + 30);
-        } else if (subscription_type === 'monthly') {
-          expiresAt.setMonth(expiresAt.getMonth() + 1);
-        } else if (subscription_type === 'yearly') {
-          expiresAt.setFullYear(expiresAt.getFullYear() + 1);
-        } else if (subscription_type === 'lifetime') {
-          expiresAt.setFullYear(expiresAt.getFullYear() + 100); // 100 years
-        }
+      if (action === 'approve') {
+        // Approve pending user
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30); // 30 days trial
 
         const { error } = await supabase
           .from('users')
           .update({ 
-            subscription_type: subscription_type,
+            status: 'trial',
             expires_at: expiresAt.toISOString(),
-            status: subscription_type.includes('trial') ? 'trial' : 'active',
             updated_at: new Date().toISOString()
           })
           .eq('account_number', account_number);
 
         if (error) throw error;
-        res.json({ success: true, message: 'User upgraded successfully' });
-      }
-
-      else if (action === 'extend') {
-        const { data: user } = await supabase
-          .from('users')
-          .select('expires_at')
-          .eq('account_number', account_number)
-          .single();
-
-        let newExpiresAt = new Date(user.expires_at);
-        
-        if (days) {
-          newExpiresAt.setDate(newExpiresAt.getDate() + parseInt(days));
-        }
-        if (months) {
-          newExpiresAt.setMonth(newExpiresAt.getMonth() + parseInt(months));
-        }
-
-        const { error } = await supabase
-          .from('users')
-          .update({ 
-            expires_at: newExpiresAt.toISOString(),
-            updated_at: new Date().toISOString()
-          })
-          .eq('account_number', account_number);
-
-        if (error) throw error;
-        res.json({ success: true, message: 'License extended successfully' });
+        console.log(`✅ Approved user: ${account_number}`);
+        res.json({ success: true, message: 'User approved successfully' });
       }
 
       else if (action === 'pause') {
@@ -123,6 +85,7 @@ export default async function handler(req, res) {
           .eq('account_number', account_number);
 
         if (error) throw error;
+        console.log(`⏸️ Paused user: ${account_number}`);
         res.json({ success: true, message: 'User paused successfully' });
       }
 
@@ -136,30 +99,8 @@ export default async function handler(req, res) {
           .eq('account_number', account_number);
 
         if (error) throw error;
+        console.log(`▶️ Resumed user: ${account_number}`);
         res.json({ success: true, message: 'User resumed successfully' });
-      }
-
-      else if (action === 'suspend') {
-        const { error } = await supabase
-          .from('users')
-          .update({ 
-            status: 'suspended',
-            updated_at: new Date().toISOString()
-          })
-          .eq('account_number', account_number);
-
-        if (error) throw error;
-        res.json({ success: true, message: 'User suspended successfully' });
-      }
-
-      else if (action === 'delete') {
-        const { error } = await supabase
-          .from('users')
-          .delete()
-          .eq('account_number', account_number);
-
-        if (error) throw error;
-        res.json({ success: true, message: 'User deleted successfully' });
       }
 
       else {
