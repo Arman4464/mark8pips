@@ -205,7 +205,7 @@ export default async function handler(req, res) {
       
       return res.json({
         valid: true,
-        status: 'trial',
+        status: 'pending',
         subscription_type: trial_type,
         expires_at: expiryDate.toISOString(),
         days_remaining: trialDays,
