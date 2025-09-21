@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark8Pips - Advanced License Manager</title>
+    <title>Mark8Pips - License Manager</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            min-height: 100vh;
+            background: #000000;
             color: #ffffff;
         }
         
@@ -22,183 +21,72 @@
             height: 100vh; 
         }
         .login-box { 
-            background: linear-gradient(135deg, #1a1a1a, #000000); 
+            background: #1a1a1a; 
             padding: 3rem; 
             border-radius: 20px; 
-            box-shadow: 0 20px 40px rgba(154, 205, 50, 0.3); 
-            width: 450px; 
-            text-align: center;
             border: 2px solid #9ACD32;
-        }
-        .login-title { 
-            margin-bottom: 2rem; 
-            color: #9ACD32; 
-            font-size: 2rem; 
-            font-weight: 700; 
-        }
-        .logo-container { 
-            margin-bottom: 1.5rem;
-        }
-        .mark8pips-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto;
-            display: block;
+            width: 400px; 
+            text-align: center;
         }
         
-        /* Dashboard Styles */
-        .dashboard { display: none; background: #000000; min-height: 100vh; }
-        
-        /* Sidebar with EMBEDDED Toggle */
+        /* Dashboard Layout */
+        .dashboard { display: none; }
         .sidebar { 
             position: fixed; 
             left: 0; 
             top: 0; 
-            width: 280px; 
+            width: 250px; 
             height: 100vh; 
-            background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%); 
-            color: #ffffff; 
-            overflow-y: auto;
-            z-index: 1000;
-            transition: transform 0.3s ease;
+            background: #1a1a1a; 
             border-right: 2px solid #9ACD32;
+            transition: all 0.3s;
         }
-        
-        .sidebar.collapsed {
-            transform: translateX(-240px);
-        }
-        
+        .sidebar.collapsed { width: 60px; }
         .sidebar-header { 
-            padding: 2rem 1.5rem; 
-            border-bottom: 2px solid #9ACD32; 
+            padding: 1rem; 
+            border-bottom: 1px solid #333; 
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            position: relative;
         }
-        
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: opacity 0.3s ease;
-        }
-        
-        .sidebar.collapsed .sidebar-brand {
-            opacity: 0;
-        }
-        
-        .sidebar-logo {
-            width: 50px;
-            height: 50px;
-        }
-        
-        /* EMBEDDED Toggle Button */
-        .sidebar-toggle {
-            position: absolute;
-            right: -25px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #9ACD32, #32CD32);
-            border: 2px solid #000000;
+        .toggle-btn {
+            background: #9ACD32;
+            border: none;
             color: #000000;
-            font-size: 1rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-            box-shadow: 0 5px 15px rgba(154, 205, 50, 0.3);
+            font-size: 14px;
         }
-        
-        .sidebar-toggle:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 8px 25px rgba(154, 205, 50, 0.5);
-        }
-        
-        .sidebar.collapsed .sidebar-toggle {
-            right: -25px;
-        }
-        
         .sidebar-menu { list-style: none; padding: 1rem 0; }
-        .sidebar-menu li { margin: 0; }
         .sidebar-menu a { 
             display: flex; 
             align-items: center; 
-            padding: 1rem 1.5rem; 
+            padding: 1rem; 
             color: #ffffff; 
             text-decoration: none; 
             transition: all 0.3s;
-            white-space: nowrap;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active { 
             background: rgba(154, 205, 50, 0.2); 
-            border-right: 4px solid #9ACD32; 
             color: #9ACD32;
         }
         .sidebar-menu i { width: 20px; margin-right: 15px; }
-        
-        .sidebar.collapsed .sidebar-menu a span {
-            opacity: 0;
-            width: 0;
-            overflow: hidden;
-        }
+        .sidebar.collapsed .sidebar-menu span { display: none; }
         
         .main-content { 
-            margin-left: 280px; 
+            margin-left: 250px; 
             padding: 2rem; 
-            transition: margin-left 0.3s ease;
-            background: #000000;
+            transition: all 0.3s;
             min-height: 100vh;
         }
+        .main-content.expanded { margin-left: 60px; }
         
-        .main-content.expanded {
-            margin-left: 40px;
-        }
-        
-        .top-header { 
-            background: linear-gradient(135deg, #1a1a1a, #000000); 
-            padding: 1.5rem 2rem; 
-            border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3); 
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid #9ACD32;
-        }
-        
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 4px;
-            margin-right: 1rem;
-            color: #9ACD32;
-        }
-        
-        .user-info { display: flex; align-items: center; gap: 1rem; }
-        .user-avatar { 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            background: linear-gradient(45deg, #9ACD32, #32CD32); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #000000; 
-            font-weight: bold;
-        }
-        
-        /* Page Content */
         .page-content { display: none; }
         .page-content.active { display: block; }
         
-        /* Stats Grid - ADDED Paused Users */
+        /* Stats Grid */
         .stats-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
@@ -206,220 +94,45 @@
             margin-bottom: 2rem; 
         }
         .stat-card { 
-            background: linear-gradient(135deg, #1a1a1a, #000000); 
+            background: #1a1a1a; 
             padding: 2rem; 
             border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3);
-            position: relative;
-            overflow: hidden;
             border: 2px solid #9ACD32;
-            color: #ffffff;
             text-align: center;
         }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #9ACD32;
-        }
-        .stat-header { display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
-        .stat-icon { 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.5rem;
-            color: #9ACD32;
-        }
-        .stat-number { font-size: 2.5rem; font-weight: bold; color: #9ACD32; margin-bottom: 0.5rem; }
-        .stat-label { color: #cccccc; font-size: 1rem; }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #9ACD32; }
+        .stat-label { color: #cccccc; margin-top: 0.5rem; }
         
         /* Cards */
         .card { 
-            background: linear-gradient(135deg, #1a1a1a, #000000); 
+            background: #1a1a1a; 
             border-radius: 15px; 
-            box-shadow: 0 5px 20px rgba(154, 205, 50, 0.3); 
-            overflow: hidden; 
-            margin-bottom: 2rem;
             border: 2px solid #9ACD32;
+            margin-bottom: 2rem;
         }
         .card-header { 
-            background: linear-gradient(135deg, #9ACD32, #32CD32); 
+            background: #9ACD32; 
             color: #000000; 
-            padding: 1.5rem 2rem; 
+            padding: 1.5rem; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
         }
-        .card-body { padding: 2rem; color: #ffffff; }
+        .card-body { padding: 2rem; }
         
-        /* Enhanced Tables */
+        /* Tables */
         .table-container { overflow-x: auto; }
-        .users-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .users-table { width: 100%; border-collapse: collapse; }
         .users-table th, .users-table td { 
-            padding: 1rem 0.8rem; 
+            padding: 1rem; 
             text-align: left; 
             border-bottom: 1px solid #333; 
-            vertical-align: top;
         }
         .users-table th { 
             background: #1a1a1a; 
-            font-weight: 600; 
             color: #9ACD32; 
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border-bottom: 2px solid #9ACD32;
         }
-        .users-table tbody tr { 
-            transition: all 0.3s; 
-            color: #ffffff;
-        }
-        .users-table tbody tr:hover { 
-            background: rgba(154, 205, 50, 0.1); 
-            transform: translateY(-2px); 
-        }
-        
-        /* Search and Control Bar */
-        .control-bar {
-            background: linear-gradient(135deg, #1a1a1a, #000000);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-            border: 2px solid #9ACD32;
-        }
-        
-        .search-container {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-        
-        .search-box {
-            width: 100%;
-            padding: 0.8rem 3rem 0.8rem 1rem;
-            border: 2px solid #9ACD32;
-            border-radius: 25px;
-            background: #000000;
-            color: #ffffff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-        
-        .search-box:focus {
-            box-shadow: 0 0 15px rgba(154, 205, 50, 0.5);
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ACD32;
-            cursor: pointer;
-        }
-        
-        /* Account Info Styles */
-        .account-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-        
-        .account-number {
-            font-weight: bold;
-            font-size: 1rem;
-            color: #9ACD32;
-        }
-        
-        .account-name {
-            font-size: 0.85rem;
-            color: #cccccc;
-            font-style: italic;
-        }
-        
-        .account-type-badge {
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-top: 0.3rem;
-        }
-        
-        .account-real {
-            background: #32CD32;
-            color: #000000;
-        }
-        
-        .account-demo {
-            background: #FFD700;
-            color: #000000;
-        }
-        
-        .account-unknown {
-            background: #666666;
-            color: #ffffff;
-        }
-        
-        .broker-info, .ea-info, .balance-info, .activity-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-        
-        .broker-name, .ea-name, .balance-amount {
-            font-weight: 600;
-            color: #ffffff;
-            font-size: 0.9rem;
-        }
-        
-        .server-name, .ea-version, .balance-currency, .last-seen, .validation-count, .client-ip {
-            font-size: 0.8rem;
-            color: #cccccc;
-        }
-        
-        .balance-info {
-            text-align: right;
-        }
-        
-        .balance-amount {
-            color: #32CD32;
-        }
-        
-        /* Status Badges */
-        .status-badge { 
-            padding: 0.4rem 1rem; 
-            border-radius: 20px; 
-            font-size: 0.8rem; 
-            font-weight: 600; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .status-trial { background: #FFD700; color: #000000; }
-        .status-active { background: #32CD32; color: #000000; }
-        .status-expired { background: #DC143C; color: #ffffff; }
-        .status-suspended { background: #FF6347; color: #000000; }
-        .status-paused { background: #FFA500; color: #000000; }
-        .status-pending { background: #9ACD32; color: #000000; }
+        .users-table tr:hover { background: rgba(154, 205, 50, 0.1); }
         
         /* Buttons */
         .btn { 
@@ -427,183 +140,60 @@
             border: none; 
             border-radius: 8px; 
             cursor: pointer; 
-            font-size: 0.85rem; 
-            font-weight: 500; 
+            font-size: 0.9rem; 
+            margin: 0.25rem;
             transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            border: 2px solid transparent;
-        }
-        .btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
         }
         .btn-primary { background: #9ACD32; color: #000000; }
-        .btn-primary:hover { box-shadow: 0 5px 15px rgba(154, 205, 50, 0.5); }
         .btn-success { background: #32CD32; color: #000000; }
-        .btn-warning { background: #FFD700; color: #000000; }
+        .btn-warning { background: #FFA500; color: #000000; }
         .btn-danger { background: #DC143C; color: #ffffff; }
-        .btn-info { background: #17a2b8; color: #ffffff; }
-        .btn-pause { background: #FFA500; color: #000000; }
-        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+        .btn:hover { transform: translateY(-2px); }
         
-        /* Refresh Animation */
-        .btn-refresh {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-refresh.loading {
-            pointer-events: none;
-        }
-        
-        .btn-refresh.loading i {
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .btn-refresh::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(154, 205, 50, 0.4), transparent);
-            transition: left 0.6s;
-        }
-        
-        .btn-refresh.loading::after {
-            left: 100%;
-        }
-        
-        /* Forms */
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { 
-            display: block; 
-            margin-bottom: 0.5rem; 
-            font-weight: 600; 
-            color: #9ACD32; 
-        }
+        /* Form Controls */
         .form-control { 
             width: 100%; 
-            padding: 0.8rem 1rem; 
+            padding: 0.8rem; 
             border: 2px solid #9ACD32; 
             border-radius: 8px; 
-            font-size: 1rem;
-            transition: all 0.3s;
             background: #000000;
             color: #ffffff;
+            margin-bottom: 1rem;
         }
-        .form-control:focus { 
-            outline: none; 
-            box-shadow: 0 0 15px rgba(154, 205, 50, 0.5); 
-        }
-        
-        /* Modals */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0,0,0,0.8); 
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-        .modal-content { 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            background: linear-gradient(135deg, #1a1a1a, #000000); 
-            padding: 2rem; 
-            border-radius: 20px; 
-            width: 90%; 
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 2px solid #9ACD32;
-            color: #ffffff;
-        }
-        .modal-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 2rem; 
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #9ACD32;
-        }
-        .modal-title { font-size: 1.5rem; font-weight: 700; color: #9ACD32; }
-        .close { 
-            background: none; 
-            border: none; 
-            font-size: 1.5rem; 
-            cursor: pointer; 
-            color: #cccccc;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        .close:hover { background: rgba(154, 205, 50, 0.2); color: #DC143C; }
         
         /* Alerts */
         .alert { 
-            padding: 1rem 1.5rem; 
-            border-radius: 10px; 
+            padding: 1rem; 
+            border-radius: 8px; 
             margin-bottom: 1rem; 
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border: 2px solid;
+            display: none;
         }
-        .alert-success { background: rgba(50, 205, 50, 0.2); color: #32CD32; border-color: #32CD32; }
-        .alert-error { background: rgba(220, 20, 60, 0.2); color: #DC143C; border-color: #DC143C; }
-        .alert-warning { background: rgba(255, 215, 0, 0.2); color: #FFD700; border-color: #FFD700; }
-        .alert-info { background: rgba(154, 205, 50, 0.2); color: #9ACD32; border-color: #9ACD32; }
+        .alert-success { background: rgba(50, 205, 50, 0.2); color: #32CD32; border: 1px solid #32CD32; }
+        .alert-error { background: rgba(220, 20, 60, 0.2); color: #DC143C; border: 1px solid #DC143C; }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-280px); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0; }
-            .main-content.expanded { margin-left: 0; }
-            .mobile-toggle { display: block; }
-            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-            .control-bar { flex-direction: column; align-items: stretch; }
-            .search-container { min-width: auto; }
+        /* Status badges */
+        .status-badge { 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 15px; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
         }
+        .status-pending { background: #9ACD32; color: #000000; }
+        .status-trial { background: #FFD700; color: #000000; }
+        .status-active { background: #32CD32; color: #000000; }
+        .status-paused { background: #FFA500; color: #000000; }
+        .status-suspended { background: #DC143C; color: #ffffff; }
         
-        /* Empty state styling */
+        /* Empty state */
         .empty-state {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem;
             color: #cccccc;
         }
-        
         .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.3;
-            color: #9ACD32;
-        }
-        
-        .empty-state h3 {
-            font-size: 1.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             color: #9ACD32;
-        }
-        
-        .empty-state p {
-            font-size: 1rem;
-            opacity: 0.8;
         }
     </style>
 </head>
@@ -611,45 +201,12 @@
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-box">
-            <div class="logo-container">
-                <svg class="mark8pips-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#9ACD32;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#32CD32;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M20 60 L100 20 L180 60 L180 120 Q180 160 100 180 Q20 160 20 120 Z" 
-                          fill="none" stroke="#9ACD32" stroke-width="4"/>
-                    <path d="M40 160 L40 80 L70 120 L100 80 L130 120 L160 80 L160 160" 
-                          fill="none" stroke="#9ACD32" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <rect x="50" y="100" width="3" height="40" fill="#9ACD32"/>
-                    <rect x="48" y="105" width="7" height="15" fill="#9ACD32"/>
-                    <rect x="65" y="90" width="3" height="50" fill="#9ACD32"/>
-                    <rect x="63" y="100" width="7" height="20" fill="#9ACD32"/>
-                    <rect x="80" y="110" width="3" height="30" fill="#9ACD32"/>
-                    <rect x="78" y="115" width="7" height="10" fill="#9ACD32"/>
-                    <rect x="120" y="95" width="3" height="45" fill="#9ACD32"/>
-                    <rect x="118" y="105" width="7" height="15" fill="#9ACD32"/>
-                    <rect x="135" y="105" width="3" height="35" fill="#9ACD32"/>
-                    <rect x="133" y="110" width="7" height="15" fill="#9ACD32"/>
-                    <rect x="150" y="100" width="3" height="40" fill="#9ACD32"/>
-                    <rect x="148" y="110" width="7" height="10" fill="#9ACD32"/>
-                </svg>
-            </div>
-            <h2 class="login-title">Mark8Pips Admin</h2>
-            <p style="color: #cccccc; margin-bottom: 2rem;">Professional License Management</p>
-            <div id="loginError" class="alert alert-error" style="display: none;"></div>
+            <h2 style="color: #9ACD32; margin-bottom: 2rem;">Mark8Pips Admin</h2>
+            <div id="loginError" class="alert alert-error"></div>
             <form id="loginForm">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" class="form-control" id="loginEmail" value="admin@mark8pips.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="loginPassword" required placeholder="Enter your secure password">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                <input type="email" class="form-control" id="loginEmail" placeholder="Email" value="admin@mark8pips.com" required>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
                     <i class="fas fa-sign-in-alt"></i> Sign In
                 </button>
             </form>
@@ -658,29 +215,12 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="dashboard">
-        <!-- Sidebar with EMBEDDED Toggle -->
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-brand">
-                    <svg class="sidebar-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 60 L100 20 L180 60 L180 120 Q180 160 100 180 Q20 160 20 120 Z" 
-                              fill="none" stroke="#9ACD32" stroke-width="6"/>
-                        <path d="M40 160 L40 80 L70 120 L100 80 L130 120 L160 80 L160 160" 
-                              fill="none" stroke="#9ACD32" stroke-width="8" stroke-linecap="round"/>
-                        <rect x="60" y="100" width="2" height="30" fill="#9ACD32"/>
-                        <rect x="80" y="90" width="2" height="40" fill="#9ACD32"/>
-                        <rect x="100" y="110" width="2" height="20" fill="#9ACD32"/>
-                        <rect x="120" y="95" width="2" height="35" fill="#9ACD32"/>
-                        <rect x="140" y="105" width="2" height="25" fill="#9ACD32"/>
-                    </svg>
-                    <div>
-                        <h3 style="margin: 0;">Mark8Pips</h3>
-                        <p style="opacity: 0.8; font-size: 0.8rem; margin: 0;">License Manager Pro</p>
-                    </div>
-                </div>
-                <!-- EMBEDDED Toggle Button -->
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-chevron-left"></i>
+                <h3 style="color: #9ACD32;">Mark8Pips</h3>
+                <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
             <ul class="sidebar-menu">
@@ -688,136 +228,67 @@
                     <i class="fas fa-chart-bar"></i> <span>Dashboard</span>
                 </a></li>
                 <li><a href="#" onclick="showPage('users')">
-                    <i class="fas fa-users"></i> <span>User Management</span>
+                    <i class="fas fa-users"></i> <span>Users</span>
                 </a></li>
                 <li><a href="#" onclick="showPage('pending')">
-                    <i class="fas fa-clock"></i> <span>Pending Approvals</span>
-                </a></li>
-                <li><a href="#" onclick="showPage('settings')">
-                    <i class="fas fa-cog"></i> <span>System Settings</span>
+                    <i class="fas fa-clock"></i> <span>Pending</span>
                 </a></li>
             </ul>
         </div>
 
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
-            <!-- Top Header -->
-            <div class="top-header">
-                <div style="display: flex; align-items: center;">
-                    <button class="mobile-toggle" id="mobileToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div>
-                        <h1>Welcome back! 👋</h1>
-                        <p style="color: #cccccc;">Manage your EA licenses and users</p>
-                    </div>
-                </div>
-                <div class="user-info">
-                    <div class="user-avatar">MP</div>
-                    <div>
-                        <div style="font-weight: 600;" id="userEmail"></div>
-                        <div style="font-size: 0.8rem; color: #cccccc;">Owner</div>
-                    </div>
-                    <button onclick="logout()" class="btn btn-danger btn-sm">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </div>
-            </div>
-
             <!-- Overview Page -->
             <div id="overviewPage" class="page-content active">
-                <!-- Statistics Grid - WITH Paused Users -->
+                <h1 style="margin-bottom: 2rem;">Dashboard Overview</h1>
+                
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
                         <div class="stat-number" id="totalUsers">0</div>
                         <div class="stat-label">Total Users</div>
                     </div>
-
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                        </div>
                         <div class="stat-number" id="trialUsers">0</div>
                         <div class="stat-label">Trial Users</div>
                     </div>
-
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">
-                                <i class="fas fa-crown"></i>
-                            </div>
-                        </div>
-                        <div class="stat-number" id="paidUsers">0</div>
-                        <div class="stat-label">Paid Users</div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                        </div>
                         <div class="stat-number" id="activeUsers">0</div>
                         <div class="stat-label">Active Users</div>
                     </div>
-
                     <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon">
-                                <i class="fas fa-pause-circle"></i>
-                            </div>
-                        </div>
                         <div class="stat-number" id="pausedUsers">0</div>
                         <div class="stat-label">Paused Users</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingUsers">0</div>
+                        <div class="stat-label">Pending Approval</div>
+                    </div>
                 </div>
 
-                <!-- Quick Actions -->
-                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                    <button class="btn btn-primary btn-refresh" onclick="loadDashboardData()" id="refreshBtn">
-                        <i class="fas fa-refresh"></i> Refresh Data
-                    </button>
-                    <button class="btn btn-warning" onclick="showPage('settings')">
-                        <i class="fas fa-cog"></i> Settings
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="loadDashboardData()">
+                    <i class="fas fa-refresh"></i> Refresh Data
+                </button>
             </div>
 
-            <!-- Users Management Page -->
+            <!-- Users Page -->
             <div id="usersPage" class="page-content">
-                <div class="control-bar">
-                    <div class="search-container">
-                        <input type="text" class="search-box" id="userSearch" placeholder="Search by account number, name, broker..." />
-                        <i class="fas fa-search search-icon" onclick="searchUsers()"></i>
-                    </div>
-                    <button class="btn btn-primary btn-refresh" onclick="loadDashboardData()" id="userRefreshBtn">
-                        <i class="fas fa-refresh"></i> Refresh
-                    </button>
-                </div>
-
                 <div class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-users"></i> User Management</h3>
+                        <h3>User Management</h3>
+                        <button class="btn btn-primary" onclick="loadDashboardData()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="table-container">
                             <table class="users-table">
                                 <thead>
                                     <tr>
-                                        <th>Account Info</th>
-                                        <th>Broker & Server</th>
-                                        <th>EA Information</th>
-                                        <th>Balance</th>
+                                        <th>Account</th>
+                                        <th>Name</th>
+                                        <th>EA</th>
                                         <th>Status</th>
-                                        <th>Subscription</th>
-                                        <th>Activity</th>
+                                        <th>Type</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -829,152 +300,51 @@
                 </div>
             </div>
 
-            <!-- Pending Approvals Page -->
+            <!-- Pending Page -->
             <div id="pendingPage" class="page-content">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h2 style="color: #9ACD32; margin: 0;"><i class="fas fa-clock"></i> Pending EA Approvals</h2>
-                    <button class="btn btn-primary btn-refresh" onclick="loadPendingApprovals()" id="pendingRefreshBtn">
-                        <i class="fas fa-refresh"></i> Refresh
-                    </button>
-                </div>
-                
                 <div class="card">
                     <div class="card-header">
-                        <h3><i class="fas fa-hourglass-half"></i> First-Time EA Activations</h3>
+                        <h3>Pending Approvals</h3>
+                        <button class="btn btn-primary" onclick="loadDashboardData()">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
                     </div>
                     <div class="card-body">
                         <div id="pendingList">
-                            <!-- Pending approvals will be loaded here -->
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Page -->
-            <div id="settingsPage" class="page-content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-cog"></i> System Settings</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Default Trial Period</label>
-                            <select class="form-control" id="systemDefaultTrial" style="max-width: 300px;">
-                                <option value="trial_7">7-Day Trial</option>
-                                <option value="trial_30" selected>30-Day Trial</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Auto-Approve New EAs</label>
-                            <select class="form-control" id="autoApprove" style="max-width: 300px;">
-                                <option value="false" selected>Require Manual Approval</option>
-                                <option value="true">Auto-Approve All</option>
-                            </select>
-                        </div>
-                        <button class="btn btn-primary" onclick="saveSystemSettings()">
-                            <i class="fas fa-save"></i> Save Settings
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Enhanced User Modal -->
-    <div id="userModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modalTitle">User Management</h3>
-                <button class="close" onclick="closeModal()">&times;</button>
-            </div>
-            <div id="modalError" class="alert alert-error" style="display: none;"></div>
-            <div id="modalSuccess" class="alert alert-success" style="display: none;"></div>
-            
-            <form id="userForm">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="form-group">
-                        <label>Account Number</label>
-                        <input type="number" class="form-control" id="modalAccountNumber" required readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Subscription Plan</label>
-                        <select class="form-control" id="modalSubscriptionType" required>
-                            <option value="trial_7">7-Day Trial</option>
-                            <option value="trial_30">30-Day Trial</option>
-                            <option value="monthly">Monthly Plan</option>
-                            <option value="yearly">Yearly Plan</option>
-                            <option value="lifetime">Lifetime Plan</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="extensionGroup" style="display: none;">
-                    <label>Extension Period</label>
-                    <div style="display: flex; gap: 1rem;">
-                        <input type="number" class="form-control" id="modalExtensionDays" placeholder="Days" min="1">
-                        <span style="align-self: center; color: #9ACD32;">OR</span>
-                        <input type="number" class="form-control" id="modalExtensionMonths" placeholder="Months" min="1">
-                    </div>
-                    <small style="color: #cccccc;">Leave both empty to use plan default duration</small>
-                </div>
-                
-                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                    <button type="submit" class="btn btn-success" style="flex: 1;">
-                        <i class="fas fa-save"></i> <span id="submitButtonText">Save Changes</span>
-                    </button>
-                    <button type="button" onclick="closeModal()" class="btn btn-danger">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- Success/Error Alerts -->
+    <div id="alertContainer" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
 
     <script>
         const API_BASE = window.location.origin;
         let authToken = localStorage.getItem('authToken');
         let currentUsers = [];
-        let filteredUsers = [];
         
-        // Check authentication on page load
         if (authToken) {
             showDashboard();
         }
         
-        // Enhanced Sidebar Toggle Functionality
-        function initSidebarToggle() {
+        // Simple sidebar toggle
+        function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const mobileToggle = document.getElementById('mobileToggle');
+            const toggleBtn = document.getElementById('toggleBtn');
             
-            // Embedded sidebar toggle
-            sidebarToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('collapsed');
-                mainContent.classList.toggle('expanded');
-                
-                const icon = sidebarToggle.querySelector('i');
-                if (sidebar.classList.contains('collapsed')) {
-                    icon.className = 'fas fa-chevron-right';
-                } else {
-                    icon.className = 'fas fa-chevron-left';
-                }
-            });
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
             
-            // Mobile toggle
-            mobileToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('mobile-open');
-            });
-            
-            // Close mobile sidebar when clicking outside
-            document.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768 && 
-                    !sidebar.contains(e.target) && 
-                    !mobileToggle.contains(e.target) && 
-                    sidebar.classList.contains('mobile-open')) {
-                    sidebar.classList.remove('mobile-open');
-                }
-            });
+            const icon = toggleBtn.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'fas fa-chevron-right';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
         }
         
         // Login form
@@ -996,30 +366,20 @@
                 if (result.success) {
                     authToken = result.token;
                     localStorage.setItem('authToken', authToken);
-                    document.getElementById('userEmail').textContent = result.user.email;
                     showDashboard();
                     loadDashboardData();
                 } else {
-                    showError('loginError', result.message || 'Invalid credentials');
+                    showAlert('Invalid credentials', 'error');
                 }
             } catch (error) {
-                showError('loginError', 'Connection error - Please try again');
+                showAlert('Connection error', 'error');
             }
         });
         
         function showDashboard() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            initSidebarToggle();
             loadDashboardData();
-        }
-        
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('authToken');
-                authToken = null;
-                location.reload();
-            }
         }
         
         function showPage(pageId) {
@@ -1038,74 +398,57 @@
             
             // Add active class to clicked menu item
             event.target.closest('a').classList.add('active');
-            
-            // Load specific page data
-            if (pageId === 'users') {
-                updateUsersTable(filteredUsers);
-            } else if (pageId === 'pending') {
-                loadPendingApprovals();
+        }
+        
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentUsers = result.users || [];
+                    updateStatistics(result.stats);
+                    updateUsersTable();
+                    updatePendingList();
+                    
+                    console.log(`📊 Loaded ${currentUsers.length} users`);
+                } else {
+                    showAlert('Failed to load data', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Load error:', error);
+                showAlert('Network error', 'error');
             }
         }
         
-        // Enhanced load dashboard data with proper API call
-async function loadDashboardData() {
-    const refreshButtons = document.querySelectorAll('.btn-refresh');
-    refreshButtons.forEach(btn => btn.classList.add('loading'));
-    
-    try {
-        const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
-            method: 'GET',
-            headers: { 
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            currentUsers = result.users || [];
-            filteredUsers = [...currentUsers];
-            updateStatistics(result.stats);
-            updateUsersTable(filteredUsers);
-            
-            console.log('📊 Loaded users:', currentUsers.length);
-        } else {
-            console.error('Failed to load dashboard data:', result.message);
-        }
-        
-    } catch (error) {
-        console.error('Network error:', error);
-    } finally {
-        refreshButtons.forEach(btn => {
-            setTimeout(() => {
-                btn.classList.remove('loading');
-            }, 600);
-        });
-    }
-}
-
         function updateStatistics(stats) {
             document.getElementById('totalUsers').textContent = stats.total_users || 0;
             document.getElementById('trialUsers').textContent = stats.trial_users || 0;
-            document.getElementById('paidUsers').textContent = stats.paid_users || 0;
             document.getElementById('activeUsers').textContent = stats.active_users || 0;
             document.getElementById('pausedUsers').textContent = stats.paused_users || 0;
+            document.getElementById('pendingUsers').textContent = stats.pending_approvals || 0;
         }
         
-        function updateUsersTable(users) {
+        function updateUsersTable() {
             const tbody = document.getElementById('usersTableBody');
             tbody.innerHTML = '';
             
-            if (!users || users.length === 0) {
+            const activeUsers = currentUsers.filter(user => user.status !== 'pending');
+            
+            if (activeUsers.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="8">
+                        <td colspan="6">
                             <div class="empty-state">
                                 <i class="fas fa-users"></i>
-                                <h3>No Users Found</h3>
-                                <p>Users will appear here when they activate the EA for the first time.<br>
-                                Make sure to test the EA with a valid account to see data here.</p>
+                                <h3>No Active Users</h3>
+                                <p>Active users will appear here after approval.</p>
                             </div>
                         </td>
                     </tr>
@@ -1113,82 +456,116 @@ async function loadDashboardData() {
                 return;
             }
             
-            // User table rendering code would go here when there are actual users
+            activeUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${user.account_number}</strong><br><small>${user.broker_name}</small></td>
+                    <td>${user.account_name || 'Unknown'}</td>
+                    <td>${user.ea_name || 'Unknown EA'}<br><small>v${user.ea_version || '1.0'}</small></td>
+                    <td><span class="status-badge status-${user.status}">${user.status.toUpperCase()}</span></td>
+                    <td><span class="status-badge status-${user.subscription_type}">${user.subscription_type.toUpperCase()}</span></td>
+                    <td>
+                        ${user.status === 'paused' ? 
+                            `<button class="btn btn-success" onclick="performAction('resume', ${user.account_number})">
+                                <i class="fas fa-play"></i> Resume
+                            </button>` : 
+                            `<button class="btn btn-warning" onclick="performAction('pause', ${user.account_number})">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>`
+                        }
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
         }
         
-        function loadPendingApprovals() {
-            const pendingList = document.getElementById('pendingList');
-            pendingList.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-hourglass-half"></i>
-                    <h3>No Pending Approvals</h3>
-                    <p>First-time EA activations that need your approval will appear here.<br>
-                    When users activate the EA for the first time, they will need your manual approval.</p>
-                </div>
+        function updatePendingList() {
+            const container = document.getElementById('pendingList');
+            const pendingUsers = currentUsers.filter(user => user.status === 'pending');
+            
+            if (pendingUsers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-hourglass-half"></i>
+                        <h3>No Pending Approvals</h3>
+                        <p>New EA activations will appear here for approval.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            pendingUsers.forEach(user => {
+                const div = document.createElement('div');
+                div.style.cssText = 'background: #2a2a2a; padding: 1.5rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid #9ACD32;';
+                div.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="color: #9ACD32;">${user.account_name} (${user.account_number})</h4>
+                            <p style="margin: 0.5rem 0; color: #cccccc;">
+                                <strong>Broker:</strong> ${user.broker_name}<br>
+                                <strong>EA:</strong> ${user.ea_name} v${user.ea_version}<br>
+                                <strong>Balance:</strong> $${user.account_balance} ${user.account_currency}
+                            </p>
+                            <small style="color: #888;">Requested: ${new Date(user.created_at).toLocaleString()}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-success" onclick="performAction('approve', ${user.account_number})">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Perform actions (approve, pause, resume)
+        async function performAction(action, accountNumber) {
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/dashboard`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action, account_number: accountNumber })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert(result.message, 'success');
+                    loadDashboardData(); // Reload data
+                } else {
+                    showAlert(result.message || 'Action failed', 'error');
+                }
+            } catch (error) {
+                showAlert('Network error', 'error');
+            }
+        }
+        
+        // Show in-page alerts (no external popups)
+        function showAlert(message, type) {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> 
+                ${message}
             `;
+            
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
         }
         
-        // Enhanced search functionality
-        function searchUsers() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            if (searchTerm === '') {
-                filteredUsers = [...currentUsers];
-            } else {
-                filteredUsers = currentUsers.filter(user => 
-                    user.account_number.toString().includes(searchTerm) ||
-                    (user.account_name && user.account_name.toLowerCase().includes(searchTerm)) ||
-                    (user.broker_name && user.broker_name.toLowerCase().includes(searchTerm)) ||
-                    (user.ea_name && user.ea_name.toLowerCase().includes(searchTerm))
-                );
-            }
-            updateUsersTable(filteredUsers);
-        }
-        
-        // Search on enter key and real-time
-        document.getElementById('userSearch').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchUsers();
-        });
-        document.getElementById('userSearch').addEventListener('input', searchUsers);
-        
-        function closeModal() {
-            document.getElementById('userModal').style.display = 'none';
-            document.getElementById('modalError').style.display = 'none';
-            document.getElementById('modalSuccess').style.display = 'none';
-            document.getElementById('modalSubscriptionType').disabled = false;
-        }
-        
-        function saveSystemSettings() {
-            alert('System settings saved successfully!');
-        }
-        
-        function showError(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-            element.style.display = 'flex';
-            setTimeout(() => element.style.display = 'none', 5000);
-        }
-        
-        function showSuccess(elementId, message) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-            element.style.display = 'flex';
-            setTimeout(() => element.style.display = 'none', 5000);
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('userModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-        
-        // Auto-refresh every 5 minutes
+        // Auto-refresh every 30 seconds
         setInterval(() => {
             if (authToken && document.getElementById('dashboard').style.display !== 'none') {
                 loadDashboardData();
             }
-        }, 300000);
+        }, 30000);
     </script>
 </body>
 </html>
